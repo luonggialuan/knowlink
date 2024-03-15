@@ -24,7 +24,7 @@ export const uploadCourse = CatchAsyncError(
       }
       createCourse(data, res, next)
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400))
+      return next(new ErrorHandler(error.message, 500))
     }
   }
 )
@@ -66,7 +66,45 @@ export const editCourse = CatchAsyncError(
         course
       })
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400))
+      return next(new ErrorHandler(error.message, 500))
+    }
+  }
+)
+
+// Get single course - Without purchasing
+export const getSingleCourse = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const course = await courseModel
+        .findById(req.params.id)
+        .select(
+          '-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links'
+        )
+      res.status(200).json({
+        success: true,
+        course
+      })
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 500))
+    }
+  }
+)
+
+// Get all courses - Without purchasing
+export const getAllCourses = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const courses = await courseModel
+        .find()
+        .select(
+          '-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links'
+        )
+      res.status(200).json({
+        success: true,
+        courses
+      })
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 500))
     }
   }
 )
