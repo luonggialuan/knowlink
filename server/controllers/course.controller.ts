@@ -3,7 +3,7 @@ import { CatchAsyncError } from '../middleware/catchAsyncErrors'
 import ErrorHandler from '../utils/ErrorHandler'
 import cloudinary from 'cloudinary'
 import { createCourse } from '../services/course.service'
-import courseModel from '../models/course.model'
+import CourseModel from '../models/course.model'
 import { redis } from '../utils/redis'
 import mongoose from 'mongoose'
 import path from 'path'
@@ -56,7 +56,7 @@ export const editCourse = CatchAsyncError(
 
       const courseId = req.params.id
 
-      const course = await courseModel.findByIdAndUpdate(
+      const course = await CourseModel.findByIdAndUpdate(
         courseId,
         {
           $set: data
@@ -92,11 +92,9 @@ export const getSingleCourse = CatchAsyncError(
           course
         })
       } else {
-        const course = await courseModel
-          .findById(courseId)
-          .select(
-            '-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links'
-          )
+        const course = await CourseModel.findById(courseId).select(
+          '-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links'
+        )
 
         await redis.set(courseId, JSON.stringify(course))
 
@@ -124,11 +122,9 @@ export const getAllCourses = CatchAsyncError(
           courses
         })
       } else {
-        const courses = await courseModel
-          .find()
-          .select(
-            '-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links'
-          )
+        const courses = await CourseModel.find().select(
+          '-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links'
+        )
 
         await redis.set('allCourses', JSON.stringify(courses))
 
@@ -160,7 +156,7 @@ export const getCourseByUser = CatchAsyncError(
         )
       }
 
-      const course = await courseModel.findById(courseId)
+      const course = await CourseModel.findById(courseId)
 
       const content = course?.courseData
 
@@ -185,7 +181,7 @@ export const addQuestion = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { question, courseId, contentId }: IAddQuestionData = req.body
-      const course = await courseModel.findById(courseId)
+      const course = await CourseModel.findById(courseId)
 
       if (!mongoose.Types.ObjectId.isValid(contentId))
         return next(new ErrorHandler('Invalid content id', 400))
@@ -233,7 +229,7 @@ export const addAnswer = CatchAsyncError(
     try {
       const { answer, courseId, contentId, questionId }: IAddAnswerData =
         req.body
-      const course = await courseModel.findById(courseId)
+      const course = await CourseModel.findById(courseId)
 
       if (!mongoose.Types.ObjectId.isValid(contentId))
         return next(new ErrorHandler('Invalid content id', 400))
@@ -321,7 +317,7 @@ export const addReview = CatchAsyncError(
           new ErrorHandler('You are not eligible to access this course', 400)
         )
 
-      const course = await courseModel.findById(courseId)
+      const course = await CourseModel.findById(courseId)
 
       const { review, rating } = req.body as IAddReviewData
 
@@ -374,7 +370,7 @@ export const addReplyToReview = CatchAsyncError(
     try {
       const { comment, courseId, reviewId } = req.body as IAddReviewData
 
-      const course = await courseModel.findById(courseId)
+      const course = await CourseModel.findById(courseId)
 
       if (!course) return next(new ErrorHandler('Course not found', 404))
 
