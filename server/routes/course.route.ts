@@ -9,7 +9,8 @@ import {
   getCourseByUser,
   getSingleCourse,
   uploadCourse,
-  getAllCourses
+  getAllCourses,
+  deleteCourse
 } from '../controllers/course.controller'
 import { authorizeRoles, isAuthenticated } from '../middleware/auth'
 
@@ -52,6 +53,13 @@ courseRouter.get(
   isAuthenticated,
   authorizeRoles('admin'),
   getAllCourses
+)
+
+courseRouter.delete(
+  '/delete-course/:id',
+  isAuthenticated,
+  authorizeRoles('admin'),
+  deleteCourse
 )
 
 export default courseRouter
