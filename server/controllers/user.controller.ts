@@ -14,7 +14,7 @@ import {
 } from '../utils/jwt'
 import { redis } from '../utils/redis'
 import cloudinary from 'cloudinary'
-import { getUserById } from '../services/user.service'
+import { getAllUsersService, getUserById } from '../services/user.service'
 
 // Register user
 interface IRegistrationBody {
@@ -398,6 +398,17 @@ export const updateProfilePicture = CatchAsyncError(
         success: true,
         user
       })
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400))
+    }
+  }
+)
+
+// Get all users - Only for admin
+export const getAllUsers = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      getAllUsersService(res)
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400))
     }
