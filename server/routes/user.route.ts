@@ -30,7 +30,7 @@ userRouter.get('/refresh', updateAccessToken)
 
 userRouter.get('/me', isAuthenticated, getUserInfo)
 
-userRouter.get('/social-auth', socialAuth)
+userRouter.post('/social-auth', socialAuth)
 
 userRouter.put('/update-user-info', isAuthenticated, updateUserInfo)
 

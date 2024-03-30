@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import {
@@ -8,6 +8,9 @@ import {
 } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
 import { BiX } from 'react-icons/bi'
+import { useLoginMutation } from '@/redux/features/auth/authApi'
+import toast from 'react-hot-toast'
+import { signIn } from 'next-auth/react'
 
 type Props = {
   setRoute: (route: string) => void
@@ -23,14 +26,29 @@ const schema = Yup.object().shape({
 
 const Login: FC<Props> = ({ setOpen, setRoute }) => {
   const [show, setShow] = useState(false)
+  const [login, { isSuccess, error, data }] = useLoginMutation()
 
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     validationSchema: schema,
     onSubmit: async ({ email, password }) => {
-      console.log(email, password)
+      await login({ email, password })
     }
   })
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('Login Successfully!')
+      setOpen(false)
+    }
+
+    if (error) {
+      if ('data' in error) {
+        const errorData = error as any
+        toast.error(errorData.data.message)
+      }
+    }
+  }, [isSuccess, error])
 
   const { errors, touched, values, handleChange, handleSubmit } = formik
   return (
@@ -48,9 +66,9 @@ const Login: FC<Props> = ({ setOpen, setRoute }) => {
           Welcome back!
         </p>
 
-        <a
-          href="#"
-          className="flex items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+        <div
+          className="cursor-pointer flex items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+          onClick={() => signIn('google')}
         >
           <div className="px-4 py-2">
             <svg className="w-6 h-6" viewBox="0 0 40 40">
@@ -76,7 +94,7 @@ const Login: FC<Props> = ({ setOpen, setRoute }) => {
           <span className="w-5/6 px-4 py-3 font-bold text-center">
             Sign in with Google
           </span>
-        </a>
+        </div>
 
         <div className="flex items-center justify-between mt-4">
           <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4"></span>
