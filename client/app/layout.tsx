@@ -24,7 +24,7 @@ export default function RootLayout({
     <html suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={`${roboto.variable} ${josefin.variable} !bg-white bg-gradient-to-r from-white to-indigo-100 via-blue-100 bg-no-repeat dark:bg-gradient-to-r dark:from-gray-800 dark:to-indigo-950 dark:via-blue-950 duration-300`}
+        className={`${roboto.variable} ${josefin.variable} !bg-white bg-gradient-to-br from-white to-indigo-300 via-blue-100 bg-no-repeat dark:bg-gradient-to-br dark:from-gray-800 dark:to-indigo-950 dark:via-blue-950 duration-300`}
       >
         <ThemeProvider>{children}</ThemeProvider>
       </body>
