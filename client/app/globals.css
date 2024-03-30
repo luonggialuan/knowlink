@@ -16,6 +16,16 @@
   }
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
 }
@@ -65,4 +75,8 @@ body {
 
 .footer-icons:hover > .sepiaa {
   filter: invert(100.1);
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
 }

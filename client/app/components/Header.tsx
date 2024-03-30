@@ -5,14 +5,20 @@ import NavItems from '../utils/NavItems'
 import { ThemeSwitcher } from '../utils/ThemeSwitcher'
 import { HiOutlineMenuAlt2, HiOutlineUserCircle } from 'react-icons/hi'
 import { BiX } from 'react-icons/bi'
+import CustomModal from '../utils/CustomModal'
+import Login from './Auth/Login'
+import SignUp from './Auth/SignUp'
+import Verification from './Auth/Verification'
 
 type Props = {
   open: boolean
   setOpen: (open: boolean) => void
   activeItem: number
+  route: string
+  setRoute: (route: string) => void
 }
 
-const Header: FC<Props> = ({ activeItem, setOpen }) => {
+const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
   const [active, setActive] = useState(false)
   const [openSidebar, setOpenSidebar] = useState(false)
 
@@ -65,33 +71,15 @@ const Header: FC<Props> = ({ activeItem, setOpen }) => {
               <HiOutlineUserCircle
                 size={25}
                 className="hidden 800px:block cursor-pointer dark:text-white text-black"
-                onClick={() => setOpen(true)}
+                onClick={() => {
+                  setOpen(true)
+                }}
               />
             </div>
           </div>
         </div>
+
         {/* mobile sidebar */}
-        {/* {openSidebar && (
-          <div
-            className="fixed top-0 left-0 z-50 w-full h-screen bg-black bg-opacity-25 transition-opacity duration-500"
-            onClick={handleClose}
-            id="screen"
-          >
-            <div className="fixed top-0 right-0 w-[60%] md:w-2/5 lg:w-2/5 xl:w-1/4 h-screen bg-gradient-to-br from-white to-indigo-100 via-blue-100 dark:from-gray-800 dark:to-indigo-950 dark:via-blue-950 dark:bg-opacity-90 transition-all duration-500 transform translate-x-0">
-              <NavItems activeItem={activeItem} isMobile={true} />
-              <HiOutlineUserCircle
-                size={25}
-                className="cursor-pointer ml-5 my-2 dark:text-white text-black"
-                onClick={() => setOpen(true)}
-              />
-              <br />
-              <br />
-              <p className="text-[16px] px-2 pl-5 text-black dark:text-white">
-                Copyright 2024 KnowLink
-              </p>
-            </div>
-          </div>
-        )} */}
         <main
           className={
             ' fixed overflow-hidden z-10 bg-gray-900 bg-opacity-25 inset-0 transform ease-in-out ' +
@@ -142,6 +130,47 @@ const Header: FC<Props> = ({ activeItem, setOpen }) => {
           </section>
         </main>
       </div>
+      {route === 'Login' && (
+        <>
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setRoute={setRoute}
+              activeItem={activeItem}
+              component={Login}
+            />
+          )}
+        </>
+      )}
+
+      {route === 'SignUp' && (
+        <>
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setRoute={setRoute}
+              activeItem={activeItem}
+              component={SignUp}
+            />
+          )}
+        </>
+      )}
+
+      {route === 'Verification' && (
+        <>
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setRoute={setRoute}
+              activeItem={activeItem}
+              component={Verification}
+            />
+          )}
+        </>
+      )}
     </nav>
   )
 }

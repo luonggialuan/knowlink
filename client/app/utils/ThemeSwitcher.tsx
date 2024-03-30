@@ -21,8 +21,6 @@ export const ThemeSwitcher = () => {
     setTheme(theme === 'light' ? 'dark' : 'light')
   }
 
-  console.log(theme)
-
   return (
     <>
       <div className="flex items-center justify-center mx-4">

@@ -11,6 +11,7 @@ interface Props {}
 const Page: FC<Props> = (props) => {
   const [open, setOpen] = useState(false)
   const [activeItem, setActiveItem] = useState(0)
+  const [route, setRoute] = useState('Login')
 
   return (
     <main>
@@ -19,7 +20,13 @@ const Page: FC<Props> = (props) => {
         description="KnowLink is a platform for student to learn and get help from teachers"
         keywords="Math, English, Physics, Chemistry, Geography, History, Biology"
       />
-      <Header open={open} setOpen={setOpen} activeItem={activeItem} />
+      <Header
+        open={open}
+        setOpen={setOpen}
+        activeItem={activeItem}
+        setRoute={setRoute}
+        route={route}
+      />
       <Banner />
       <Footer />
     </main>
