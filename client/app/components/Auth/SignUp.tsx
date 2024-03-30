@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import {
@@ -8,6 +8,8 @@ import {
 } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
 import { BiX } from 'react-icons/bi'
+import { useRegisterMutation } from '@/redux/features/auth/authApi'
+import toast from 'react-hot-toast'
 
 type Props = {
   setOpen: (open: boolean) => void
@@ -29,12 +31,32 @@ const schema = Yup.object().shape({
 const SignUp: FC<Props> = ({ setOpen, setRoute }) => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [register, { data, error, isSuccess }] = useRegisterMutation()
+
+  useEffect(() => {
+    if (isSuccess) {
+      const message = data?.message || 'Registration successfully!'
+      toast.success(message)
+      setRoute('Verification')
+    }
+    if (error) {
+      if ('data' in error) {
+        const errorData = error as any
+        toast.error(errorData.data.message)
+      }
+    }
+  }, [isSuccess, error])
 
   const formik = useFormik({
     initialValues: { name: '', email: '', password: '', confirmPassword: '' },
     validationSchema: schema,
-    onSubmit: async ({ email, password }) => {
-      setRoute('Verification')
+    onSubmit: async ({ name, email, password }) => {
+      const data = {
+        name,
+        email,
+        password
+      }
+      await register(data)
     }
   })
 
@@ -158,13 +180,13 @@ const SignUp: FC<Props> = ({ setOpen, setRoute }) => {
               />
               {!showPassword ? (
                 <AiOutlineEyeInvisible
-                  className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 cursor-pointer"
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 cursor-pointer dark:fill-white"
                   size={20}
                   onClick={() => setShowPassword(true)}
                 />
               ) : (
                 <AiOutlineEye
-                  className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 cursor-pointer"
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 cursor-pointer dark:fill-white"
                   size={20}
                   onClick={() => setShowPassword(false)}
                 />
@@ -196,13 +218,13 @@ const SignUp: FC<Props> = ({ setOpen, setRoute }) => {
               />
               {!showConfirmPassword ? (
                 <AiOutlineEyeInvisible
-                  className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 cursor-pointer"
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 cursor-pointer dark:fill-white"
                   size={20}
                   onClick={() => setShowConfirmPassword(true)}
                 />
               ) : (
                 <AiOutlineEye
-                  className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 cursor-pointer"
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 cursor-pointer dark:fill-white"
                   size={20}
                   onClick={() => setShowConfirmPassword(false)}
                 />
@@ -218,7 +240,7 @@ const SignUp: FC<Props> = ({ setOpen, setRoute }) => {
           <div className="mt-6">
             <button
               type="submit"
-              className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
+              className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 dark:bg-blue-800 rounded-lg hover:bg-gray-700 dark:hover:bg-blue-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
             >
               Sign Up
             </button>

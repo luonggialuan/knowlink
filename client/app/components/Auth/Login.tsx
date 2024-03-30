@@ -139,13 +139,13 @@ const Login: FC<Props> = ({ setOpen, setRoute }) => {
               />
               {!show ? (
                 <AiOutlineEyeInvisible
-                  className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 cursor-pointer"
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 cursor-pointer dark:fill-white"
                   size={20}
                   onClick={() => setShow(true)}
                 />
               ) : (
                 <AiOutlineEye
-                  className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 cursor-pointer"
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 cursor-pointer dark:fill-white"
                   size={20}
                   onClick={() => setShow(false)}
                 />
@@ -159,7 +159,7 @@ const Login: FC<Props> = ({ setOpen, setRoute }) => {
           <div className="mt-6">
             <button
               type="submit"
-              className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
+              className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 dark:bg-blue-800 rounded-lg hover:bg-gray-700 dark:hover:bg-blue-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
             >
               Sign In
             </button>

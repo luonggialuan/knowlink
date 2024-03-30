@@ -1,6 +1,8 @@
-import React, { FC, useRef, useState } from 'react'
+import { useActivationMutation } from '@/redux/features/auth/authApi'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { VscWorkspaceTrusted } from 'react-icons/vsc'
+import { useSelector } from 'react-redux'
 
 type Props = {
   setRoute: (route: string) => void
@@ -14,7 +16,27 @@ type VerifyNumber = {
 }
 
 const Verification: FC<Props> = ({ setRoute }) => {
+  const { token } = useSelector((state: any) => state.auth)
+  const [activation, { isSuccess, error }] = useActivationMutation()
   const [invalidError, setInvalidError] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('Account activated successfully!')
+      setRoute('Login')
+    }
+
+    if (error) {
+      if ('data' in error) {
+        const errorData = error as any
+        toast.error(errorData.data.message)
+        setInvalidError(true)
+      } else {
+        console.log('An error occured:', error)
+      }
+    }
+  }, [isSuccess, error])
+
   const inputRefs = [
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
@@ -29,7 +51,16 @@ const Verification: FC<Props> = ({ setRoute }) => {
   })
 
   const verificationHandler = async () => {
-    setInvalidError(true)
+    const verificationNumber = Object.values(verifyNumber).join('')
+    if (verificationNumber.length !== 4) {
+      setInvalidError(true)
+      return
+    }
+
+    await activation({
+      activation_token: token,
+      activation_code: verificationNumber
+    })
   }
 
   const handleInputChange = (index: number, value: string) => {
@@ -79,7 +110,7 @@ const Verification: FC<Props> = ({ setRoute }) => {
         <br />
         <div className="mt-6">
           <button
-            className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
+            className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 dark:bg-blue-800 rounded-lg hover:bg-gray-700 dark:hover:bg-blue-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
             onClick={verificationHandler}
           >
             Verify OTP
