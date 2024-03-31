@@ -6,6 +6,10 @@ import { ThemeProvider } from './utils/theme-provider'
 import { Toaster } from 'react-hot-toast'
 import { Providers } from './Provider'
 import { SessionProvider } from 'next-auth/react'
+import React, { FC, useEffect, useState } from 'react'
+import { useLoadUserQuery } from '@/redux/features/api/apiSlice'
+import Loader from './components/Loader/Loader'
+import { CssBaseline } from '@mui/material'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -28,12 +32,13 @@ export default function RootLayout({
     <html suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={`${roboto.variable} ${josefin.variable} !bg-white bg-gradient-to-br from-white to-indigo-300 via-blue-100 bg-no-repeat dark:bg-gradient-to-br dark:from-gray-800 dark:to-indigo-950 dark:via-blue-950 duration-300`}
+        className={`${roboto.variable} ${josefin.variable} !bg-white bg-gradient-to-br from-white to-indigo-300 via-blue-100 bg-no-repeat dark:bg-gradient-to-br dark:from-gray-800 dark:to-indigo-950 dark:via-blue-950`}
       >
         <Providers>
           <SessionProvider>
             <ThemeProvider>
-              {children}
+              <CssBaseline />
+              <Custom>{children}</Custom>
               <Toaster position="top-center" reverseOrder={false} />
             </ThemeProvider>
           </SessionProvider>
@@ -41,4 +46,18 @@ export default function RootLayout({
       </body>
     </html>
   )
+}
+
+const Custom: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(true)
+
+  const { isLoading: queryLoading } = useLoadUserQuery({})
+
+  useEffect(() => {
+    if (!queryLoading) {
+      setIsLoading(false)
+    }
+  }, [queryLoading])
+
+  return <>{isLoading ? <Loader /> : <>{children}</>}</>
 }

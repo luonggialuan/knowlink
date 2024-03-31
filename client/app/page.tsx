@@ -2,7 +2,6 @@
 import React, { FC, useState } from 'react'
 import Heading from './utils/Heading'
 import Header from './components/Header'
-import Hero from './components/Route/Hero'
 import Banner from './components/Banner'
 import Footer from './components/Footer'
 
