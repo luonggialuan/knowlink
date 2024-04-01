@@ -124,7 +124,7 @@ const SignUp: FC<Props> = ({ setOpen, setRoute }) => {
         <form onSubmit={handleSubmit}>
           <div className="mt-4">
             <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
-              Enterr your Name
+              Enter your Name
             </label>
             <input
               className={`${
@@ -145,7 +145,7 @@ const SignUp: FC<Props> = ({ setOpen, setRoute }) => {
 
           <div className="mt-4">
             <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
-              Enterr your Email
+              Enter your Email
             </label>
             <input
               className={`${

@@ -1,8 +1,11 @@
 import Image from 'next/image'
 import React, { FC, useEffect, useState } from 'react'
 import avatarDefault from '../../../public/assets/default-avatar.jpg'
-import { AiOutlineCamera } from 'react-icons/ai'
-import { useUpdateAvatarMutation } from '@/redux/features/user/userApi'
+import { AiOutlineCamera, AiOutlineLoading } from 'react-icons/ai'
+import {
+  useEditProfileMutation,
+  useUpdateAvatarMutation
+} from '@/redux/features/user/userApi'
 import { useLoadUserQuery } from '@/redux/features/api/apiSlice'
 import toast from 'react-hot-toast'
 
@@ -14,8 +17,11 @@ type Props = {
 const ProfileInfo: FC<Props> = ({ avatar, user }) => {
   const [name, setName] = useState(user && user.name)
   const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation()
+  const [editProfile, { isSuccess: success, error: updateError }] =
+    useEditProfileMutation()
   const [loadUser, setLoadUser] = useState(false)
   const [loadingAvatar, setLoadingAvatar] = useState(false)
+  const [loadingName, setLoadingName] = useState(false)
   const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true })
 
   const imageHandler = async (e: any) => {
@@ -60,18 +66,33 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
     fileReader.readAsDataURL(e.target.files[0])
   }
 
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    setLoadingName(true)
+    if (name !== '' || name !== user?.name) {
+      await editProfile({
+        name: name
+      })
+    }
+  }
+
   useEffect(() => {
     if (isSuccess) {
       setLoadUser(true)
       setLoadingAvatar(false)
     }
 
+    if (success) {
+      setLoadUser(true)
+      toast.success('Update your full name successfully!')
+      setLoadingName(false)
+    }
+
     if (error) {
       toast.error('Fail to upload avatar')
     }
-  }, [isSuccess, error])
+  }, [isSuccess, error, success, updateError])
 
-  const handleSubmit = async (e: any) => {}
   return (
     <>
       <div className="w-full flex justify-center">
@@ -114,16 +135,23 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
               <label className="block pb-1 text-black dark:text-white">
                 Full Name
               </label>
-              <input
-                type="text"
-                className="w-full py-2 px-4 rounded-md border-[2px] border-indigo-500 bg-transparent  text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
-                required
-                value={name}
-                style={{
-                  transition: 'border-color 0.3s ease, box-shadow 0.3s ease'
-                }}
-                onChange={(e) => setName(e.target.value)}
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  className="w-full py-2 px-4 rounded-md border-[2px] border-indigo-500 bg-transparent  text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
+                  required
+                  value={name}
+                  style={{
+                    transition: 'border-color 0.3s ease, box-shadow 0.3s ease'
+                  }}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                {loadingName && (
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                    <AiOutlineLoading className="animate-spin text-gray-500" />
+                  </div>
+                )}
+              </div>
             </div>
             <div className="w-[100%]">
               <label className="block pb-1 pt-4 text-black dark:text-white">
@@ -133,6 +161,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
                 type="text"
                 className="w-full py-2 px-4 rounded-md border-[2px] border-indigo-500 bg-transparent text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
                 required
+                readOnly
                 value={user?.email}
                 style={{
                   transition: 'border-color 0.3s ease, box-shadow 0.3s ease'

@@ -29,7 +29,6 @@ type Props = {
 }
 
 const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
-  const [loginSuccessToastShown, setLoginSuccessToastShown] = useState(false)
   const [active, setActive] = useState(false)
   const [openSidebar, setOpenSidebar] = useState(false)
   const { user } = useSelector((state: any) => state.auth)
@@ -41,8 +40,8 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
   })
 
   useEffect(() => {
-    if (!user) {
-      if (data) {
+    if (!user && !logout) {
+      if (data && !logout) {
         socialAuth({
           email: data?.user?.email,
           name: data?.user?.name,
@@ -50,10 +49,12 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
         })
       }
     }
+
     if (data === null) {
-      if (isSuccess) toast.success('Login Successfully!')
-    }
-    if (data === null) {
+      if (user && logout) {
+        setLogout(false)
+        return
+      }
       setLogout(true)
     }
   }, [data, user])

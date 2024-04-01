@@ -1,9 +1,11 @@
 'use client'
-import React, { FC, use, useState } from 'react'
+import React, { FC, use, useEffect, useState } from 'react'
 import SideBarProfile from './SideBarProfile'
 import { useLogOutQuery } from '@/redux/features/auth/authApi'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import ProfileInfo from './ProfileInfo'
+import toast from 'react-hot-toast'
+import { redirect } from 'next/navigation'
 
 type Props = {
   user: any
@@ -20,7 +22,12 @@ const Profile: FC<Props> = ({ user }) => {
 
   const logOutHandler = async () => {
     setLogout(true)
-    await signOut()
+
+    toast.promise(signOut(), {
+      loading: 'Loging Out...',
+      success: <b>Logout Successfully!</b>,
+      error: <b>There are something wrong.</b>
+    })
   }
 
   if (typeof window !== 'undefined') {
