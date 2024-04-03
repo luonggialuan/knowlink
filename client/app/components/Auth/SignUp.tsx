@@ -17,7 +17,9 @@ type Props = {
 }
 
 const schema = Yup.object().shape({
-  name: Yup.string().required('Please enter your name!').max(20),
+  name: Yup.string()
+    .required('Please enter your name!')
+    .max(20, 'Name must be at most 20 characters'),
   email: Yup.string()
     .email('Invalid email!')
     .required('Please enter your email!')
@@ -134,7 +136,7 @@ const SignUp: FC<Props> = ({ setOpen, setRoute }) => {
               type="name"
               id="name"
               name=""
-              placeholder="Loginmail@gmail.com"
+              placeholder="Your Name"
               value={values.name}
               onChange={handleChange}
             />
@@ -179,7 +181,7 @@ const SignUp: FC<Props> = ({ setOpen, setRoute }) => {
                 name=""
                 value={values.password}
                 onChange={handleChange}
-                placeholder="Your password"
+                placeholder="Your Password"
               />
               {!showPassword ? (
                 <AiOutlineEyeInvisible

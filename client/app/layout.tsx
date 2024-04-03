@@ -9,7 +9,6 @@ import { SessionProvider } from 'next-auth/react'
 import React, { FC, useEffect, useState } from 'react'
 import { useLoadUserQuery } from '@/redux/features/api/apiSlice'
 import Loader from './components/Loader/Loader'
-import { CssBaseline } from '@mui/material'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -37,7 +36,6 @@ export default function RootLayout({
         <Providers>
           <SessionProvider>
             <ThemeProvider>
-              <CssBaseline />
               <Custom>{children}</Custom>
               <Toaster position="top-center" reverseOrder={false} />
             </ThemeProvider>

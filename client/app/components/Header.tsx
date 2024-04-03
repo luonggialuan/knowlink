@@ -40,22 +40,20 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
   })
 
   useEffect(() => {
-    if (!user && !logout) {
-      if (data && !logout) {
-        socialAuth({
-          email: data?.user?.email,
-          name: data?.user?.name,
-          avatar: data?.user?.image
-        })
-      }
+    if (!!data && !user) {
+      socialAuth({
+        email: data?.user?.email,
+        name: data?.user?.name,
+        avatar: data?.user?.image
+      })
     }
+    if (data === null && user === null && logout == false) setLogout(true)
 
-    if (data === null) {
+    // Cleanup function
+    return () => {
       if (user && logout) {
         setLogout(false)
-        return
       }
-      setLogout(true)
     }
   }, [data, user])
 

@@ -19,7 +19,7 @@ const page: FC<Props> = (props: Props) => {
     <main>
       <Protected>
         <Heading
-          title={`${user?.name} profile`}
+          title={`${user?.name} profile - KnowLink`}
           description="KnowLink is a platform for student to learn and get help from teachers"
           keywords="Math, English, Physics, Chemistry, Geography, History, Biology"
         />

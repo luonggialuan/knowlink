@@ -95,87 +95,91 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
 
   return (
     <>
-      <div className="w-full flex justify-center">
-        <div className="relative">
-          <Image
-            src={
-              user.avatar || avatar ? user.avatar.url || avatar : avatarDefault
-            }
-            alt=""
-            width={120}
-            height={120}
-            className="w-[120px] h-[120px] cursor-pointer border-[3px] border-[#4f46e5] rounded-full"
-          />
-          {loadingAvatar && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full">
-              <div className="spinner"></div>
-            </div>
-          )}
-          <input
-            type="file"
-            name=""
-            id="avatar"
-            className="hidden"
-            onChange={imageHandler}
-            accept="image/png, image/jpg, image/jpeg, image/webp"
-          />
-          <label htmlFor="avatar">
-            <div className="w-[30px] h-[30px] bg-slate-900 rounded-full absolute bottom-2 right-2 flex items-center justify-center cursor-pointer">
-              <AiOutlineCamera size={20} className="z-10" fill="white" />
-            </div>
-          </label>
+      <div className="w-full pl-7 px-2 800px:px-5 800px:pl-0">
+        <div className="w-full flex justify-center">
+          <div className="relative">
+            <Image
+              src={
+                user.avatar || avatar
+                  ? user.avatar.url || avatar
+                  : avatarDefault
+              }
+              alt=""
+              width={120}
+              height={120}
+              className="w-[120px] h-[120px] cursor-pointer border-[3px] border-[#4f46e5] rounded-full"
+            />
+            {loadingAvatar && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full">
+                <div className="spinner"></div>
+              </div>
+            )}
+            <input
+              type="file"
+              name=""
+              id="avatar"
+              className="hidden"
+              onChange={imageHandler}
+              accept="image/png, image/jpg, image/jpeg, image/webp"
+            />
+            <label htmlFor="avatar">
+              <div className="w-[30px] h-[30px] bg-slate-900 rounded-full absolute bottom-2 right-2 flex items-center justify-center cursor-pointer">
+                <AiOutlineCamera size={20} className="z-10" fill="white" />
+              </div>
+            </label>
+          </div>
         </div>
-      </div>
-      <br />
-      <br />
-      <div className="w-full pl-6 800px:pl-10">
-        <form onSubmit={handleSubmit}>
-          <div className="800px:w-[50%] m-auto block pb-4">
-            <div className="w-[100%]">
-              <label className="block pb-1 text-black dark:text-white">
-                Full Name
-              </label>
-              <div className="relative">
+        <br />
+        <br />
+        <div className="w-full ">
+          <form onSubmit={handleSubmit} className="flex flex-col items-center">
+            <div className="w-[100%] 800px:w-[60%]">
+              <div className="w-[100%]">
+                <label className="block pb-1 text-black dark:text-white">
+                  Full Name
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    className="w-full py-2 px-4 rounded-md border-[2px] border-indigo-500 bg-transparent  text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
+                    required
+                    value={name}
+                    style={{
+                      transition: 'border-color 0.3s ease, box-shadow 0.3s ease'
+                    }}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  {loadingName && (
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                      <AiOutlineLoading className="animate-spin text-gray-500" />
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="w-[100%]">
+                <label className="block pb-1 pt-4 text-black dark:text-white">
+                  Email Address
+                </label>
                 <input
                   type="text"
-                  className="w-full py-2 px-4 rounded-md border-[2px] border-indigo-500 bg-transparent  text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
+                  className="w-full py-2 px-4 rounded-md border-[2px] border-indigo-500 bg-transparent text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
                   required
-                  value={name}
+                  readOnly
+                  value={user?.email}
                   style={{
                     transition: 'border-color 0.3s ease, box-shadow 0.3s ease'
                   }}
-                  onChange={(e) => setName(e.target.value)}
                 />
-                {loadingName && (
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                    <AiOutlineLoading className="animate-spin text-gray-500" />
-                  </div>
-                )}
               </div>
-            </div>
-            <div className="w-[100%]">
-              <label className="block pb-1 pt-4 text-black dark:text-white">
-                Email Address
-              </label>
               <input
-                type="text"
-                className="w-full py-2 px-4 rounded-md border-[2px] border-indigo-500 bg-transparent text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
+                type="submit"
                 required
-                readOnly
-                value={user?.email}
-                style={{
-                  transition: 'border-color 0.3s ease, box-shadow 0.3s ease'
-                }}
+                value="Update"
+                className="w-full 800px:w-[250px] h-[40px] border border-indigo-500 dark:border-indigo-300 text-center dark:text-[#fff] text-black rounded-[3px] mt-8 cursor-pointer transition duration-300 ease-in-out hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-300 dark:hover:text-white"
               />
             </div>
-            <input
-              type="submit"
-              required
-              value="Update"
-              className="w-full 800px:w-[250px] h-[40px] border border-indigo-500 dark:border-indigo-300 text-center dark:text-[#fff] text-black rounded-[3px] mt-8 cursor-pointer transition duration-300 ease-in-out hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-300 dark:hover:text-white"
-            />
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </>
   )

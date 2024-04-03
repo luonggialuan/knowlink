@@ -24,7 +24,7 @@ userRouter.post('/activate-user', activateUser)
 
 userRouter.post('/login', loginUser)
 
-userRouter.get('/logout', isAuthenticated, logoutUser)
+userRouter.get('/logout', logoutUser)
 
 userRouter.get('/refresh', updateAccessToken)
 
