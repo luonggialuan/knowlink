@@ -10,7 +10,8 @@ import {
   getSingleCourse,
   uploadCourse,
   getAllCourses,
-  deleteCourse
+  deleteCourse,
+  generateVideoUrl
 } from '../controllers/course.controller'
 import { authorizeRoles, isAuthenticated } from '../middleware/auth'
 
@@ -54,6 +55,8 @@ courseRouter.get(
   authorizeRoles('admin'),
   getAllCourses
 )
+
+courseRouter.post('/getVdoCipherOTP', generateVideoUrl)
 
 courseRouter.delete(
   '/delete-course/:id',
