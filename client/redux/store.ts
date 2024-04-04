@@ -40,8 +40,8 @@ const loadUser = async () => {
 // Function to initialize app
 const initializeApp = async () => {
   // await Promise.all([refreshToken(), loadUser()])
-  await loadUser()
   await refreshToken()
+  await loadUser()
 }
 
 // Set up an interval to check token expiration and refresh it

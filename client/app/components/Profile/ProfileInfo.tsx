@@ -135,7 +135,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
           <form onSubmit={handleSubmit} className="flex flex-col items-center">
             <div className="w-[100%] 800px:w-[60%]">
               <div className="w-[100%]">
-                <label className="block pb-1 text-black dark:text-white">
+                <label className="block pb-2 text-black dark:text-white">
                   Full Name
                 </label>
                 <div className="relative">
@@ -157,7 +157,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
                 </div>
               </div>
               <div className="w-[100%]">
-                <label className="block pb-1 pt-4 text-black dark:text-white">
+                <label className="block pb-2 pt-4 text-black dark:text-white">
                   Email Address
                 </label>
                 <input

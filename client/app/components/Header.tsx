@@ -47,7 +47,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
         avatar: data?.user?.image
       })
     }
-    if (data === null && user === null && logout == false) setLogout(true)
+    // if (data === null && user === null && logout == false) setLogout(true)
 
     // Cleanup function
     return () => {
