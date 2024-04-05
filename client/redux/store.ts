@@ -29,7 +29,7 @@ const loadUser = async () => {
 
 // Call the refresh token function on every page load
 const initializeApp = async () => {
-  await refreshToken()
+  // await refreshToken()
   await loadUser()
 }
 

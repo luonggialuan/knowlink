@@ -1,12 +1,15 @@
 'use client'
-import { Box, Button } from '@mui/material'
+import { Box, Button, Modal } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { useTheme } from 'next-themes'
 import React, { FC, useState } from 'react'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { format } from 'timeago.js'
 import Loader from '../../Loader/Loader'
-import { useGetAllUsersQuery } from '@/redux/features/user/userApi'
+import {
+  useGetAllUsersQuery,
+  useUpdateUserRoleMutation
+} from '@/redux/features/user/userApi'
 import { MdOutlineEmail } from 'react-icons/md'
 import { styles } from '@/app/styles/style'
 type Props = {
@@ -16,8 +19,12 @@ type Props = {
 const AllUsers: FC<Props> = ({ isTeam }) => {
   const { theme, setTheme } = useTheme()
   const [active, setActive] = useState(false)
+  const [email, setEmail] = useState('')
+  const [role, setRole] = useState('admin')
 
   const { isLoading, data, error } = useGetAllUsersQuery({})
+  const [updateUserRole, { isSuccess, error: updateError }] =
+    useUpdateUserRoleMutation()
 
   const columns = [
     { field: 'id', headerName: 'ID', flex: 0.3 },
@@ -93,20 +100,24 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
       })
   }
 
+  const handleSubmit = () => {}
+
   return (
     <div className="mt-[120px]">
       {isLoading ? (
         <Loader />
       ) : (
         <Box m="20px">
-          <div className="w-full flex justify-end">
-            <button
-              className={`${styles.button} !w-[200px] !mt-0 !mb-0`}
-              onClick={() => setActive(!active)}
-            >
-              Add New Member
-            </button>
-          </div>
+          {isTeam && (
+            <div className="w-full flex justify-end">
+              <button
+                className={`${styles.button} !w-[200px] !mt-0 !mb-0`}
+                onClick={() => setActive(!active)}
+              >
+                Add New Member
+              </button>
+            </div>
+          )}
 
           <Box
             m="40px 0 0 0"
@@ -169,6 +180,42 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
           >
             <DataGrid checkboxSelection rows={rows} columns={columns} />
           </Box>
+          {active && (
+            <Modal
+              open={active}
+              onClose={() => setActive(!active)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white dark:bg-slate-900 rounded-lg shadow-lg p-4 outline-none">
+                <p className="mt-3 text-xl text-center text-gray-600 dark:text-gray-200">
+                  Add New Member
+                </p>
+                <div className="mt-4">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter email..."
+                    className={`${styles.input_modal}`}
+                  />
+                </div>
+                <select name="" id="" className={`${styles.input_modal} !mt-6`}>
+                  <option value="admin">Admin</option>
+                  <option value="user">User</option>
+                </select>
+                <br />
+                <div className="flex items-center justify-center">
+                  <button
+                    className={`${styles.buttno_modal}`}
+                    onClick={handleSubmit}
+                  >
+                    Submit
+                  </button>
+                </div>
+              </Box>
+            </Modal>
+          )}
         </Box>
       )}
     </div>

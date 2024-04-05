@@ -1,3 +1,4 @@
+import { styles } from '@/app/styles/style'
 import { useUpdatePasswordMutation } from '@/redux/features/user/userApi'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -48,7 +49,7 @@ const ChangePassword = (props: Props) => {
             </label>
             <input
               type="password"
-              className="w-full py-2 px-4 rounded-md border-[2px] border-indigo-500 bg-transparent text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
+              className="w-full py-2 px-4 rounded-md border border-indigo-500 bg-transparent text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
               required
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
@@ -60,7 +61,7 @@ const ChangePassword = (props: Props) => {
             </label>
             <input
               type="password"
-              className="w-full py-2 px-4 rounded-md border-[2px] border-indigo-500 bg-transparent text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
+              className="w-full py-2 px-4 rounded-md border border-indigo-500 bg-transparent text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
               required
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
@@ -72,7 +73,7 @@ const ChangePassword = (props: Props) => {
             </label>
             <input
               type="password"
-              className="w-full py-2 px-4 rounded-md border-[2px] border-indigo-500 bg-transparent text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
+              className="w-full py-2 px-4 rounded-md border border-indigo-500 bg-transparent text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
               required
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -81,7 +82,7 @@ const ChangePassword = (props: Props) => {
               type="submit"
               required
               value="Update"
-              className="w-full 800px:w-[250px] h-[40px] border border-indigo-500 dark:border-indigo-300 text-center dark:text-[#fff] text-black rounded-[3px] mt-8 cursor-pointer transition duration-300 ease-in-out hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-700 dark:hover:text-white"
+              className={`${styles.button}`}
             />
           </div>
         </form>

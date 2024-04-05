@@ -8,6 +8,7 @@ import {
 } from '@/redux/features/user/userApi'
 import { useLoadUserQuery } from '@/redux/features/api/apiSlice'
 import toast from 'react-hot-toast'
+import { styles } from '@/app/styles/style'
 
 type Props = {
   avatar: string | null
@@ -141,7 +142,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
                 <div className="relative">
                   <input
                     type="text"
-                    className="w-full py-2 px-4 rounded-md border-[2px] border-indigo-500 bg-transparent  text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
+                    className="w-full py-2 px-4 rounded-md border border-indigo-500 bg-transparent  text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
                     required
                     value={name}
                     style={{
@@ -162,7 +163,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
                 </label>
                 <input
                   type="text"
-                  className="w-full py-2 px-4 rounded-md border-[2px] border-indigo-500 bg-transparent text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
+                  className="w-full py-2 px-4 rounded-md border border-indigo-500 bg-transparent text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0"
                   required
                   readOnly
                   value={user?.email}
@@ -175,7 +176,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
                 type="submit"
                 required
                 value="Update"
-                className="w-full 800px:w-[250px] h-[40px] border border-indigo-500 dark:border-indigo-300 text-center dark:text-[#fff] text-black rounded-[3px] mt-8 cursor-pointer transition duration-300 ease-in-out hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-700 dark:hover:text-white"
+                className={`${styles.button}`}
               />
             </div>
           </form>
