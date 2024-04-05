@@ -249,7 +249,7 @@ const CourseContent: FC<Props> = ({
                     </div>
                     {item?.links?.map((link: any, linkIndex: number) => (
                       <div className="my-3 block" key={linkIndex + 1}>
-                        <div className="w-full flex items-center justify-between">
+                        <div className="w-full text-black dark:text-white flex items-center justify-between">
                           <label>Link {linkIndex + 1}</label>
                           <AiOutlineDelete
                             className={`${
