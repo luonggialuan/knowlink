@@ -6,6 +6,7 @@ import {
   getUserInfo,
   loginUser,
   logoutUser,
+  refreshAccessToken,
   registrationUser,
   socialAuth,
   updateAccessToken,
@@ -26,9 +27,9 @@ userRouter.post('/login', loginUser)
 
 userRouter.get('/logout', logoutUser)
 
-userRouter.get('/refresh', updateAccessToken)
+userRouter.get('/refresh', refreshAccessToken)
 
-userRouter.get('/me', updateAccessToken, isAuthenticated, getUserInfo)
+userRouter.get('/me', isAuthenticated, getUserInfo)
 
 userRouter.post('/social-auth', socialAuth)
 
