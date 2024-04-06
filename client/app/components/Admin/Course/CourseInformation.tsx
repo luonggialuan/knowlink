@@ -201,7 +201,11 @@ const CourseInformation: FC<Props> = ({
             {courseInfo.thumbnail ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={courseInfo.thumbnail}
+                src={
+                  courseInfo.thumbnail.url
+                    ? courseInfo.thumbnail.url
+                    : courseInfo.thumbnail
+                }
                 alt="thumbnail"
                 className="max-h-full w-full object-cover"
               />

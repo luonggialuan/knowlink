@@ -1,18 +1,51 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import CourseInformation from './CourseInformation'
 import CourseOptions from './CourseOptions'
 import CourseData from './CourseData'
 import CourseContent from './CourseContent'
 import CoursePreview from './CoursePreview'
-import { useCreateCourseMutation } from '@/redux/features/courses/coursesApi'
+import {
+  useCreateCourseMutation,
+  useEditCourseMutation,
+  useGetAllCoursesQuery
+} from '@/redux/features/courses/coursesApi'
 import toast from 'react-hot-toast'
 import { redirect } from 'next/navigation'
 
-type Props = {}
+type Props = {
+  id: string
+}
 
-const CreateCourse = (props: Props) => {
+const EditCourse: FC<Props> = ({ id }) => {
+  const [editCourse, { isSuccess, error, isLoading }] = useEditCourseMutation()
+  const {
+    isLoading: isLoadingEdit,
+    data,
+    refetch
+  } = useGetAllCoursesQuery({}, { refetchOnMountOrArgChange: true })
+
+  const editCourseData = data && data.courses.find((i: any) => i._id === id)
+
   const [active, setActive] = useState(0)
+
+  useEffect(() => {
+    if (editCourseData) {
+      setCourseInfo({
+        name: editCourseData.name,
+        description: editCourseData.description,
+        price: editCourseData.price,
+        estimatedPrice: editCourseData.estimatedPrice,
+        tags: editCourseData.tags,
+        level: editCourseData.level,
+        demoUrl: editCourseData.demoUrl,
+        thumbnail: editCourseData.thumbnail
+      })
+      setBenefits(editCourseData.benefits)
+      setPrerequisites(editCourseData.prerequisites)
+      setCourseContentData(editCourseData.courseData)
+    }
+  }, [editCourseData])
   const [courseInfo, setCourseInfo] = useState({
     name: '',
     description: '',
@@ -87,24 +120,14 @@ const CreateCourse = (props: Props) => {
     setCourseData(data)
   }
 
-  const [createCourse, { isLoading, isSuccess, error }] =
-    useCreateCourseMutation()
-
-  const handleCourseCreate = async (e: any) => {
+  const handleCourseUpdate = async (e: any) => {
     const data = courseData
-
-    if (!isLoading) {
-      // await createCourse(data)
-      toast.promise(createCourse(data), {
-        loading: 'Creating course...',
-        success: <b>Course created successfully!</b>,
-        error: <b>There are something wrong.</b>
-      })
-    }
+    await editCourse({ id: editCourseData?._id, data })
   }
 
   useEffect(() => {
     if (isSuccess) {
+      toast.success('Course Updated successfully!')
       redirect('/admin/courses')
     }
 
@@ -151,9 +174,9 @@ const CreateCourse = (props: Props) => {
             active={active}
             setActive={setActive}
             courseData={courseData}
-            handleCourseCreate={handleCourseCreate}
-            isEdit={false}
-            isLoading={false}
+            handleCourseCreate={handleCourseUpdate}
+            isEdit={true}
+            isLoading={isLoading}
           />
         )}
       </div>
@@ -164,4 +187,4 @@ const CreateCourse = (props: Props) => {
   )
 }
 
-export default CreateCourse
+export default EditCourse

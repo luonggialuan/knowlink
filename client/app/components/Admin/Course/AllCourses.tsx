@@ -13,6 +13,7 @@ import Loader from '../../Loader/Loader'
 import { format } from 'timeago.js'
 import { RiErrorWarningLine } from 'react-icons/ri'
 import toast from 'react-hot-toast'
+import Link from 'next/link'
 type Props = {}
 
 const AllCourses = (props: Props) => {
@@ -39,11 +40,11 @@ const AllCourses = (props: Props) => {
       flex: 0.2,
       renderCell: (params: any) => {
         return (
-          <>
-            <Button>
+          <div className="flex items-center justify-center h-full">
+            <Link href={`/admin/edit-course/${params.row.id}`}>
               <FaRegEdit className="dark:text-white text-black" size={20} />
-            </Button>
-          </>
+            </Link>
+          </div>
         )
       }
     },

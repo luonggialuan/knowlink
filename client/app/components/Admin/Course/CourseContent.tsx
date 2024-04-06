@@ -132,12 +132,11 @@ const CourseContent: FC<Props> = ({
             item.videoSection !== courseContentData[index - 1].videoSection
 
           return (
-            <>
+            <div key={index}>
               <div
                 className={`w-full dark:bg-[#cdc8c817] bg-slate-50 p-4 ${
                   showSectionInput ? 'mt-10' : 'mb-0'
                 }`}
-                key={index}
               >
                 {showSectionInput && (
                   <>
@@ -315,7 +314,7 @@ const CourseContent: FC<Props> = ({
                   </div>
                 )}
               </div>
-            </>
+            </div>
           )
         })}
         <br />
