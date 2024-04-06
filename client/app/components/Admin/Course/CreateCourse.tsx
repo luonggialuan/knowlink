@@ -105,7 +105,7 @@ const CreateCourse = (props: Props) => {
 
   useEffect(() => {
     if (isSuccess) {
-      redirect('/admin/all-course')
+      redirect('/admin/courses')
     }
 
     if (error) {

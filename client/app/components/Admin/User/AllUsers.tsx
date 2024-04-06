@@ -26,7 +26,10 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
   const [userId, setUserId] = useState('')
   const [email, setEmail] = useState('')
   const [role, setRole] = useState('admin')
-  const { isLoading, data, error } = useGetAllUsersQuery({})
+  const { isLoading, data, refetch } = useGetAllUsersQuery(
+    {},
+    { refetchOnMountOrArgChange: true }
+  )
   const [deleteUser, { isSuccess: deleteSuccess, error: deleteError }] =
     useDeleteUserMutation()
   const [
@@ -69,7 +72,6 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
               onClick={() => {
                 setOpen(!open)
                 setUserId(params.row.id)
-                console.log(userId)
               }}
             >
               <AiOutlineDelete
@@ -141,17 +143,17 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
     }
 
     if (isSuccess) {
+      refetch()
       toast.success('User role updated successfully!')
       setActive(false)
-      window.location.reload()
     }
 
     if (deleteSuccess) {
+      refetch()
       toast.success('Deleted user successfully!')
       setOpen(false)
-      window.location.reload()
     }
-  }, [updateError, isSuccess, deleteSuccess, deleteError])
+  }, [updateError, isSuccess, deleteSuccess, deleteError, refetch])
 
   return (
     <div className="mt-[120px]">
