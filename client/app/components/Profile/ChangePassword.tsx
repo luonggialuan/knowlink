@@ -35,7 +35,7 @@ const ChangePassword = (props: Props) => {
 
   return (
     <div className="w-full pl-7 px-2 800px:px-5 800px:pl-0">
-      <h1 className="text-gray-800 dark:text-[#fff] block text-[25px] 800px:text-[30px] font-Roboto text-center font-[500]  pb-2">
+      <h1 className="text-gray-800 dark:text-[#fff] block text-[25px] 800px:text-[30px] font-Roboto text-center font-[500] pb-2">
         Change Password
       </h1>
       <div className="w-full">

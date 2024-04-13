@@ -152,7 +152,7 @@ const AllCourses = (props: Props) => {
                 color: theme === 'dark' ? '#fff' : '#000'
               },
               '& .MuiDataGrid-virtualScroller': {
-                backgroundColor: theme === 'dark' ? '#1f2a40' : '#f2f0f0'
+                backgroundColor: theme === 'dark' ? '#1f2a40' : '#fff'
               },
               '& .MuiDataGrid-footerContainer': {
                 color: theme === 'dark' ? '#fff' : '#000',

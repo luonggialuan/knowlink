@@ -173,7 +173,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
           )}
 
           <Box
-            m="40px 0 0 0"
+            m="20px 0 0 0"
             height="80vh"
             sx={{
               '& .MuiDataGrid-root': {
@@ -211,7 +211,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
                 color: theme === 'dark' ? '#fff' : '#000'
               },
               '& .MuiDataGrid-virtualScroller': {
-                backgroundColor: theme === 'dark' ? '#1f2a40' : '#f2f0f0'
+                backgroundColor: theme === 'dark' ? '#1f2a40' : '#fff'
               },
               '& .MuiDataGrid-footerContainer': {
                 color: theme === 'dark' ? '#fff' : '#000',

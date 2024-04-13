@@ -23,7 +23,7 @@ layoutRouter.put(
 )
 
 layoutRouter.get(
-  '/get-layout',
+  '/get-layout/:type',
   isAuthenticated,
   authorizeRoles('admin'),
   getLayoutByType
