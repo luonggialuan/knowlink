@@ -280,21 +280,21 @@ const AdminSidebar = () => {
             </Typography>
             <Item
               title="Courses Analytics"
-              to="/admin/courses-analytics"
+              to="/admin/analytics/courses"
               icon={<BarChartOutlined />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Order Analystics"
-              to="/admin/orders-analytics"
+              title="Orders Analystics"
+              to="/admin/analytics/orders"
               icon={<MapOutlined />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Users Analystics"
-              to="/admin/users-analytics"
+              to="/admin/analytics/users"
               icon={<ManageHistory />}
               selected={selected}
               setSelected={setSelected}
@@ -307,13 +307,6 @@ const AdminSidebar = () => {
             >
               {!isCollapsed && 'Extras'}
             </Typography>
-            <Item
-              title="Settings"
-              to="/admin/settings"
-              icon={<Settings />}
-              selected={selected}
-              setSelected={setSelected}
-            />
             <div onClick={logOutHandler}>
               <Item
                 title="Logout"

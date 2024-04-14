@@ -21,7 +21,7 @@ const DashBoardHeader = (props: Props) => {
       </div>
       {open && (
         <div
-          className={`w-[70%] sm:w-[300px] md:w-[350px] h-[50vh] dark:bg-gray-900 bg-white shadow-xl absolute top-16 z-10 rounded transition-transform transition-opacity duration-300 transform ${
+          className={`w-[70%] sm:w-[300px] md:w-[350px] h-[50vh] dark:bg-gray-900 bg-white shadow-xl absolute top-16 z-100 rounded transition-opacity duration-300 transform ${
             open ? '' : 'scale-y-0 opacity-0'
           } origin-top-right`}
         >

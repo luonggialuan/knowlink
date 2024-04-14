@@ -50,7 +50,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
       flex: 0.2,
       renderCell: (params: any) => {
         return (
-          <div className="flex items-center justify-center h-full">
+          <div className="flex items-center h-full">
             <a href={`mailto:${params.row.email}`}>
               <MdOutlineEmail
                 className="dark:text-white text-black"

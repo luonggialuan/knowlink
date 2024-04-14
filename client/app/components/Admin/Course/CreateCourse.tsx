@@ -43,7 +43,6 @@ const CreateCourse = (props: Props) => {
       suggestion: ''
     }
   ])
-  console.log(courseContentData)
   const [courseData, setCourseData] = useState({})
 
   const handleSubmit = async () => {

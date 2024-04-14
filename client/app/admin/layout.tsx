@@ -2,7 +2,7 @@ import React from 'react'
 import AdminProtected from '../hooks/useAdminProtected'
 import Heading from '../utils/Heading'
 import AdminSidebar from '../components/Admin/sidebar/AdminSidebar'
-import DashBoardHero from '../components/Admin/DashBoardHero'
+import DashBoardHeader from '../components/Admin/DashBoardHeader'
 
 type Props = {}
 
@@ -20,7 +20,7 @@ const layout = (props: { children: React.ReactNode }) => {
             <AdminSidebar />
           </div>
           <div className="w-[85%]">
-            <DashBoardHero />
+            <DashBoardHeader />
             {props.children}
           </div>
         </div>
