@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { useGetHeroDataQuery } from '@/redux/layout/layoutApi'
 
 type Props = {}
 
 const Banner = (props: Props) => {
+  const [image, setImage] = useState('')
+  const [title, setTitle] = useState('')
+  const [subTitle, setSubTitle] = useState('')
+  const { data, refetch, isLoading } = useGetHeroDataQuery('Banner', {
+    refetchOnMountOrArgChange: true
+  })
+
+  useEffect(() => {
+    if (data) {
+      setTitle(data?.layout?.banner.title)
+      setSubTitle(data?.layout?.banner.subTitle)
+      setImage(data?.layout?.banner?.image?.url)
+    }
+  }, [data])
+
   return (
     <div id="home-section" className="bg-lightkblue">
       <div className="mx-auto max-w-7xl pt-20 sm:pb-24 px-6">
@@ -21,11 +37,10 @@ const Banner = (props: Props) => {
               </h3>
             </div>
             <h1 className="text-midnightblue text-4xl sm:text-5xl font-semibold text-center lg:text-start lh-120 pt-5 lg:pt-0 text-black dark:text-white">
-              Improve Your Online Learning Experience Better Instantly
+              {title}
             </h1>
             <h3 className="text-charcoal text-lg font-normal text-center lg:text-start pt-5 lg:pt-0 text-black dark:text-white">
-              We have 40k+ Online course & 500k+ Online registered student. Find
-              your desired Courses from them.
+              {subTitle}
             </h3>
 
             <div className="relative text-white focus-within:text-white flex flex-row-reverse input-shadow rounded-full pt-5 lg:pt-0">
@@ -91,10 +106,11 @@ const Banner = (props: Props) => {
 
           <div className="col-span-6 flex justify-center">
             <Image
-              src="/assets/banner/mahila.png"
+              src={image}
               alt="nothing"
               width={1000}
               height={805}
+              priority
             />
           </div>
         </div>

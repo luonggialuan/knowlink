@@ -16,6 +16,7 @@ const CreateCourse = (props: Props) => {
   const [courseInfo, setCourseInfo] = useState({
     name: '',
     description: '',
+    category: '',
     price: '',
     estimatedPrice: '',
     tags: '',
@@ -23,6 +24,7 @@ const CreateCourse = (props: Props) => {
     demoUrl: '',
     thumbnail: ''
   })
+  console.log(courseInfo)
   const [benefits, setBenefits] = useState([{ title: '' }])
   const [prerequisites, setPrerequisites] = useState([{ title: '' }])
   const [courseContentData, setCourseContentData] = useState([
@@ -31,6 +33,7 @@ const CreateCourse = (props: Props) => {
       title: '',
       description: '',
       videoSection: 'Untitled Section',
+      videoLength: '',
       links: [
         {
           title: '',
@@ -40,6 +43,7 @@ const CreateCourse = (props: Props) => {
       suggestion: ''
     }
   ])
+  console.log(courseContentData)
   const [courseData, setCourseData] = useState({})
 
   const handleSubmit = async () => {
@@ -60,6 +64,7 @@ const CreateCourse = (props: Props) => {
         title: courseContent.title,
         description: courseContent.description,
         videoSection: courseContent.videoSection,
+        videoLength: courseContent.videoLength,
         links: courseContent.links.map((link) => ({
           title: link.title,
           url: link.url
@@ -72,6 +77,7 @@ const CreateCourse = (props: Props) => {
     const data = {
       name: courseInfo.name,
       description: courseInfo.description,
+      category: courseInfo.category,
       price: courseInfo.price,
       estimatedPrice: courseInfo.estimatedPrice,
       tags: courseInfo.tags,

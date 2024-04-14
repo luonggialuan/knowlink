@@ -82,8 +82,9 @@ const Footer = () => {
                   <Image
                     src={items.imgSrc}
                     alt={items.imgSrc}
-                    width={items.width}
+                    width={14}
                     height={2}
+                    style={{ width: 'auto', height: 'auto' }}
                     className="sepiaa"
                   />
                 </div>
