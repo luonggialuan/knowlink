@@ -34,23 +34,21 @@ const socialLinks: socialLinks[] = [
 const products: ProductType[] = [
   {
     id: 1,
-    section: 'Company',
-    link: ['About', 'Careers', 'Mobile', 'Blog', 'How we work?']
+    section: 'About',
+    link: ['Our Story', 'Mobile', 'Blog', 'How we work?']
   },
   {
     id: 2,
-    section: 'Contact',
-    link: ['Help/FAQ', 'Press', 'Affiliates', 'Hotel owners', 'Partners']
+    section: 'Quick Links',
+    link: ['Help/FAQ', 'Courses', 'My Account', 'Courses Dashboard']
   },
   {
     id: 3,
-    section: 'More',
+    section: 'Contact Us',
     link: [
-      'Airline fees',
-      'Airlines',
-      'Low fare tips',
-      'Badges &',
-      'Certificates'
+      'Call Us: 08-xxxx-xxxx',
+      'Address: Can Tho, Viet Nam',
+      'Mail Us: help@knowlink.com'
     ]
   }
 ]
@@ -64,7 +62,7 @@ const Footer = () => {
         <div className="sm:col-span-6 lg:col-span-5">
           <div className="flex flex-shrink-0 items-center border-right">
             <Image
-              src="/assets/logo/logo.svg"
+              src="/assets/logo/knowlink-logo.png"
               alt="logo"
               width={214}
               height={66}
@@ -120,7 +118,7 @@ const Footer = () => {
 
       <div className="py-10 md:flex items-center justify-between border-t border-t-gray-blue">
         <h4 className="text-black  dark:text-white opacity-75 text-sm text-center md:text-start font-normal">
-          @2023.E-learnings.All rights reserved
+          @2024.KnowLink.All rights reserved
         </h4>
         <div className="flex gap-5 mt-5 md:mt-0 justify-center md:justify-start">
           <h4 className="text-black dark:text-white opacity-75 text-sm font-normal">

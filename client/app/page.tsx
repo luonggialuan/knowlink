@@ -4,6 +4,9 @@ import Heading from './utils/Heading'
 import Header from './components/Header'
 import Banner from './components/Banner'
 import Footer from './components/Footer'
+import Courses from './components/Route/Courses'
+import Review from './components/Route/Review'
+import FAQ from './components/FAQ/FAQ'
 
 interface Props {}
 
@@ -27,6 +30,9 @@ const Page: FC<Props> = (props) => {
         route={route}
       />
       <Banner />
+      <Courses />
+      <Review />
+      <FAQ />
       <Footer />
     </main>
   )

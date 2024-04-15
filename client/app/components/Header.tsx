@@ -89,7 +89,12 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                 href={'/'}
                 className={`text-[25px] font-Roboto font-[700] text-black dark:text-white`}
               >
-                KnowLink
+                <Image
+                  src="/assets/logo/knowlink-logo.png"
+                  alt="logo"
+                  width={214}
+                  height={66}
+                />
               </Link>
             </div>
             <div className="flex items-center">
@@ -161,10 +166,15 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                   passHref
                   className={`text-[25px] font-Roboto font-[700] text-black dark:text-white`}
                 >
-                  KnowLink
+                  <Image
+                    src="/assets/logo/knowlink-logo.png"
+                    alt="logo"
+                    width={214}
+                    height={66}
+                  />
                 </Link>
                 <BiX
-                  className="block h-6 w-6"
+                  className="block h-6 w-6 cursor-pointer"
                   onClick={() => {
                     setOpenSidebar(false)
                   }}
