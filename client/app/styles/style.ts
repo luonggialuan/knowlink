@@ -3,7 +3,7 @@ export const styles = {
     'text-gray-800 dark:text-[#fff] block text-[25px] 800px:text-[30px] font-Roboto text-center font-[500] pb-2',
   label: 'block pb-2 text-black dark:text-white',
   button:
-    'w-full 800px:w-[250px] h-[40px] border-[2px] border-indigo-500 dark:border-indigo-300 text-center dark:text-[#fff] text-black rounded-[3px] mt-8 cursor-pointer transition duration-300 ease-in-out hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-700 dark:hover:text-white',
+    'w-full 800px:w-[250px] h-[40px] border-[2px] border-indigo-500 dark:border-indigo-300 text-center text-[#fff] rounded-[3px] mt-8 cursor-pointer transition duration-300 ease-in-out bg-indigo-500 hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-700 dark:hover:text-white',
   input:
     'w-full py-2 px-4 rounded-md border-[2px] border-gray-500 dark:border-gray-400 bg-transparent text-gray-800 dark:text-[#fff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500  mb-4 800px:mb-0',
   input_modal:
