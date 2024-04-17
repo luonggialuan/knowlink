@@ -76,6 +76,9 @@ export const editCourse = CatchAsyncError(
         }
       )
 
+      // Cache maintenance 7 days
+      await redis.set(courseId, JSON.stringify(course), 'EX', 604800)
+
       res.status(201).json({
         success: true,
         course
