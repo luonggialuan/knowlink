@@ -43,7 +43,11 @@ const CourseContent: FC<Props> = ({
 
   const handleAddLink = (index: number) => {
     const updatedData = [...courseContentData]
-    updatedData[index].links.push({ title: '', url: '' })
+    // updatedData[index].links.push({ title: '', url: '' })
+    updatedData[index] = {
+      ...updatedData[index],
+      links: [...updatedData[index].links, { title: '', url: '' }]
+    }
     setCourseContentData(updatedData)
   }
 
@@ -156,7 +160,10 @@ const CourseContent: FC<Props> = ({
                         value={item.videoSection}
                         onChange={(e) => {
                           const updatedData = [...courseContentData]
-                          updatedData[index].videoSection = e.target.value
+                          updatedData[index] = {
+                            ...updatedData[index],
+                            videoSection: e.target.value
+                          }
                           setCourseContentData(updatedData)
                         }}
                       />
@@ -246,7 +253,10 @@ const CourseContent: FC<Props> = ({
                         value={item.videoLength}
                         onChange={(e) => {
                           const updatedData = [...courseContentData]
-                          updatedData[index].videoLength = e.target.value
+                          updatedData[index] = {
+                            ...updatedData[index],
+                            videoLength: e.target.value
+                          }
                           setCourseContentData(updatedData)
                         }}
                       />

@@ -5,11 +5,11 @@ import Ratings from '@/app/utils/Ratings'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { IoCheckmarkDoneOutline, IoCloseOutline } from 'react-icons/io5'
-import { useSelector } from 'react-redux'
 import { format } from 'timeago.js'
 import CourseContentList from './CourseContentList'
 import { Elements } from '@stripe/react-stripe-js'
 import CheckOutForm from '../Payment/CheckOutForm'
+import { useLoadUserQuery } from '@/redux/features/api/apiSlice'
 
 type Props = {
   data: any
@@ -18,7 +18,8 @@ type Props = {
 }
 
 const CourseDetails = ({ data, clientSecret, stripePromise }: Props) => {
-  const { user } = useSelector((state: any) => state.auth)
+  const { data: userData } = useLoadUserQuery(undefined, {})
+  const user = userData?.user
   const [open, setOpen] = useState(false)
   const discountPercentenge =
     ((data?.estimatedPrice - data.price) / data?.estimatedPrice) * 100
@@ -180,7 +181,7 @@ const CourseDetails = ({ data, clientSecret, stripePromise }: Props) => {
               <div className="flex items-center">
                 {isPurchased ? (
                   <Link
-                    className={`${styles.button} !w-[180px] my-3 font-Roboto cursor-pointer text-center`}
+                    className={`${styles.button} !w-[180px] my-3 font-Roboto cursor-pointer flex items-center justify-center`}
                     href={`/course/access/${data._id}`}
                   >
                     Enter to Course

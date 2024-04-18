@@ -55,7 +55,10 @@ const CourseContentList: FC<Props> = (props) => {
 
         return (
           <div
-            className={`${!props.isDemo && 'border-b border-[#ffffff8e] pb-2'}`}
+            className={`${
+              !props.isDemo &&
+              'border-b dark:border-slate-200 border-slate-500  pb-2'
+            }`}
             key={sectionIndex}
           >
             <div className="w-full flex">
@@ -76,7 +79,7 @@ const CourseContentList: FC<Props> = (props) => {
               </div>
             </div>
             <h5 className="text-black dark:text-white">
-              {sectionVideoCount} Lessons{' '}
+              {sectionVideoCount} Lessons{' - '}
               {sectionVideoLength < 60
                 ? sectionVideoLength
                 : sectionContentHours.toFixed(2)}{' '}
@@ -93,7 +96,9 @@ const CourseContentList: FC<Props> = (props) => {
                     <div
                       key={item._id}
                       className={`w-full ${
-                        videoIndex === props.activeVideo ? 'bg-slate-800' : ''
+                        videoIndex === props.activeVideo
+                          ? 'dark:bg-indigo-500 bg-sky-100'
+                          : ''
                       } cursor-pointer transition-all p-2`}
                       onClick={() =>
                         props.isDemo
