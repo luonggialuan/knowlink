@@ -15,7 +15,7 @@ const page = ({ params }: Props) => {
   const { isLoading, error, data } = useLoadUserQuery({})
 
   useEffect(() => {
-    if (!data || !data.user || error) {
+    if (!data || error) {
       redirect('/')
     } else {
       const isPurchased = data.user.courses.find((item: any) => item._id === id)
@@ -26,7 +26,7 @@ const page = ({ params }: Props) => {
   }, [data, error, id])
 
   return (
-    <>{isLoading ? <Loader /> : <CourseContent id={id} user={data.user} />}</>
+    <>{isLoading ? <Loader /> : <CourseContent id={id} user={data?.user} />}</>
   )
 }
 

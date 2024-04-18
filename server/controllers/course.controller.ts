@@ -270,7 +270,9 @@ export const addAnswer = CatchAsyncError(
       // Create a new answer object
       const newAnswer: any = {
         user: req.user,
-        answer
+        answer,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       }
 
       // Add this answer to our course content
@@ -407,7 +409,9 @@ export const addReplyToReview = CatchAsyncError(
 
       const replyData: any = {
         user: req.user,
-        comment
+        comment,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       }
 
       if (!review.commentReplies) {
