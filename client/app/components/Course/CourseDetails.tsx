@@ -3,7 +3,7 @@ import { styles } from '@/app/styles/style'
 import CoursePlayer from '@/app/utils/CoursePlayer'
 import Ratings from '@/app/utils/Ratings'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoCheckmarkDoneOutline, IoCloseOutline } from 'react-icons/io5'
 import { format } from 'timeago.js'
 import CourseContentList from './CourseContentList'
@@ -17,11 +17,27 @@ type Props = {
   data: any
   clientSecret: string
   stripePromise: any
+  setRoute: any
+  setOpen: any
 }
 
-const CourseDetails = ({ data, clientSecret, stripePromise }: Props) => {
-  const { data: userData } = useLoadUserQuery(undefined, {})
-  const user = userData?.user
+const CourseDetails = ({
+  data,
+  clientSecret,
+  stripePromise,
+  setRoute,
+  setOpen: openAuthModal
+}: Props) => {
+  const { data: userData, refetch } = useLoadUserQuery(undefined, {
+    refetchOnMountOrArgChange: true
+  })
+  const [user, setUser] = useState<any>()
+  // const user = userData?.user
+  useEffect(() => {
+    setUser(userData?.user)
+    refetch()
+  }, [userData, refetch])
+
   const [open, setOpen] = useState(false)
   const discountPercentenge =
     ((data?.estimatedPrice - data.price) / data?.estimatedPrice) * 100
@@ -32,8 +48,13 @@ const CourseDetails = ({ data, clientSecret, stripePromise }: Props) => {
     user && user?.courses?.find((item: any) => item._id === data._id)
 
   const handleOrder = (e: any) => {
-    setOpen(true)
+    if (user) setOpen(true)
+    else {
+      setRoute('Login')
+      openAuthModal(true)
+    }
   }
+
   return (
     <>
       <div className="w-[90%] 800px:w-[90%] m-auto py-5">

@@ -14,14 +14,14 @@ const CourseCard: FC<Props> = ({ item, isProfile }) => {
     <Link
       href={!isProfile ? `/course/${item._id}` : `course-access/${item._id}`}
     >
-      <div className="w-full min-h-[35px] bg-opacity-20 bg-slate-300 dark:bg-slate-500 dark:bg-opacity-20 backdrop-blur border dark:border-[#ffffff1d] border-[#00000015] dark:shadow-[bg-slate-700] rounded-lg p-3 shadow-sm dark:shadow-inner">
+      <div className="relative group w-full min-h-[35px] bg-opacity-20 bg-slate-300 dark:bg-slate-500 dark:bg-opacity-20 border dark:border-[#ffffff1d] border-[#00000015] hover:shadow-indigo-400 dark:hover:shadow-indigo-400 rounded-lg p-3 shadow-2xl dark:shadow-2xl transition-all duration-300 ease-in-out transform hover:scale-105">
         <Image
           src={item.thumbnail.url}
           alt=""
           width={500}
           height={300}
           // objectFit="contain"
-          className="rounded w-full"
+          className="rounded w-full h-[200px]"
         />
         <br />
         <h1 className="font-Roboto text-[16px] text-black dark:text-[#fff]">

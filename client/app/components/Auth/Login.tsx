@@ -57,7 +57,7 @@ const Login: FC<Props> = ({ setOpen, setRoute }) => {
         <div className="absolute top-0 right-0 m-4">
           {' '}
           <BiX
-            className="cursor-pointer"
+            className="cursor-pointer text-black dark:text-white"
             size={24}
             onClick={() => setOpen(false)}
           />
@@ -99,12 +99,9 @@ const Login: FC<Props> = ({ setOpen, setRoute }) => {
         <div className="flex items-center justify-between mt-4">
           <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4"></span>
 
-          <a
-            href="#"
-            className="text-xs text-center text-gray-500 uppercase dark:text-gray-400 hover:underline"
-          >
+          <p className="text-xs text-center text-gray-500 uppercase dark:text-gray-400">
             or login with email
-          </a>
+          </p>
 
           <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
         </div>
