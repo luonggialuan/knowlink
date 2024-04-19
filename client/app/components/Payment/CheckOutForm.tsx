@@ -10,13 +10,19 @@ import {
 import { redirect } from 'next/navigation'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import socketIO from 'socket.io-client'
+const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || ''
+const socketId = socketIO('http://localhost:8000/', {
+  transports: ['websocket']
+})
 
 type Props = {
   setOpen: any
   data: any
+  user: any
 }
 
-const CheckOutForm: FC<Props> = ({ setOpen, data }: Props) => {
+const CheckOutForm: FC<Props> = ({ setOpen, data, user }: Props) => {
   const stripe = useStripe()
   const elements = useElements()
   const [message, setMessage] = useState<any>('')
@@ -41,8 +47,8 @@ const CheckOutForm: FC<Props> = ({ setOpen, data }: Props) => {
       setMessage(error.message)
       setIsLoading(false)
     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-      createOrder({ courseId: data._id, payment_info: paymentIntent })
       setIsLoading(false)
+      createOrder({ courseId: data._id, payment_info: paymentIntent })
       // setOpen(false)
     }
   }
@@ -50,6 +56,11 @@ const CheckOutForm: FC<Props> = ({ setOpen, data }: Props) => {
   useEffect(() => {
     if (orderData) {
       setLoadUser(true)
+      socketId.emit('notification', {
+        title: 'New Order',
+        message: `You have a new order from ${data.name}`,
+        userId: user._id
+      })
       redirect(`/course/access/${data._id}`)
     }
 
