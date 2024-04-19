@@ -10,6 +10,8 @@ import CourseContentList from './CourseContentList'
 import { Elements } from '@stripe/react-stripe-js'
 import CheckOutForm from '../Payment/CheckOutForm'
 import { useLoadUserQuery } from '@/redux/features/api/apiSlice'
+import Image from 'next/image'
+import avatarDefault from '@/public/assets/default-avatar.jpg'
 
 type Props = {
   data: any
@@ -125,59 +127,65 @@ const CourseDetails = ({ data, clientSecret, stripePromise }: Props) => {
                     Course Rating | {data?.reviews?.length} Reviews
                   </h5>
                 </div>
-                <br />
-                {(data?.reviews && [...data?.reviews].reverse()).map(
-                  (item: any, index: number) => (
-                    <div key={index} className="w-full pb-4">
-                      <div className="flex">
-                        <div className="w-[50px] h-[50px]">
-                          <div className="w-[50px] h-[50px] bg-slate-600 rounded-[50px] flex items-center justify-center cursor-pointer">
-                            <h1 className="uppercase text-[18px] text-black dark:text-white">
-                              {item.user.name.slice(0, 2)}
-                            </h1>
-                          </div>
-                        </div>
-                        <div className="hidden 800px:block pl-2">
-                          <div className="flex items-center">
-                            <h5 className="text-[18px] pr-2 text-black dark:text-white">
-                              {item.user.name}
-                            </h5>
-                            <Ratings rating={item.rating} />
-                          </div>
-                          <p className="text-black dark:text-white">
-                            {item.comment}
-                          </p>
-                          <small className="text-[#000000d1] dark:text-[#ffffff83]">
-                            {format(item.createdAt)}
-                          </small>
-                        </div>
-                        <div className="pl-2 flex 800px:hidden items-center">
+              </div>
+              <br />
+              {(data?.reviews && [...data?.reviews].reverse()).map(
+                (item: any, index: number) => (
+                  <div key={index} className="w-full pb-4">
+                    <div className="flex">
+                      <Image
+                        src={
+                          item.user.avatar
+                            ? item.user.avatar.url
+                            : avatarDefault
+                        }
+                        width={50}
+                        height={50}
+                        alt="avatar"
+                        className="w-[50px] h-[50px] rounded-full object-cover"
+                      />
+                      <div className="hidden 800px:block pl-2">
+                        <div className="flex items-center">
                           <h5 className="text-[18px] pr-2 text-black dark:text-white">
                             {item.user.name}
                           </h5>
                           <Ratings rating={item.rating} />
                         </div>
+                        <p className="text-black dark:text-white">
+                          {item.comment}
+                        </p>
+                        <small className="text-[#000000d1] dark:text-[#ffffff83]">
+                          {format(item.createdAt)}
+                        </small>
+                      </div>
+                      <div className="pl-2 flex 800px:hidden items-center">
+                        <h5 className="text-[18px] pr-2 text-black dark:text-white">
+                          {item.user.name}
+                        </h5>
+                        <Ratings rating={item.rating} />
                       </div>
                     </div>
-                  )
-                )}
-              </div>
+                  </div>
+                )
+              )}
             </div>
           </div>
           <div className="w-full 800px:w-[35%] relative">
             <div className="sticky top-[100px] left-0 z-50 w-full">
               <CoursePlayer videoUrl={data?.demoUrl} title={data?.title} />
-              <div className="flex items-center">
-                <h1 className="pt-5 text-[25px] text-black dark:text-white">
-                  {data.price == 0 ? 'Free' : data.price + '$'}
-                </h1>
-                <h5 className="pl-3 text-[20px] mt-2 line-through opacity-80 text-black dark:text-white">
-                  {data.estimatedPrice}$
-                </h5>
-                <h4 className="pl-5 pt-4 text-[22px] text-black dark:text-white">
-                  {discountPercentengePrice}% Off
-                </h4>
-              </div>
+              {!isPurchased && (
+                <div className="flex items-center">
+                  <h1 className="pt-5 text-[25px] text-black dark:text-white">
+                    {data.price == 0 ? 'Free' : data.price + '$'}
+                  </h1>
+                  <h5 className="pl-3 text-[20px] mt-2 line-through opacity-80 text-black dark:text-white">
+                    {data.estimatedPrice}$
+                  </h5>
+                  <h4 className="pl-5 pt-4 text-[22px] text-black dark:text-white">
+                    {discountPercentengePrice}% Off
+                  </h4>
+                </div>
+              )}
               <div className="flex items-center">
                 {isPurchased ? (
                   <Link
