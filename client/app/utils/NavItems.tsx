@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import Tooltip from '@mui/material/Tooltip'
 
 export const navItemsData = [
   {
@@ -35,17 +36,19 @@ const NavItems: React.FC<Props> = ({ activeItem, isMobile }) => {
       <div className="hidden 800px:flex">
         {navItemsData &&
           navItemsData.map((i, index) => (
-            <Link href={`${i.url}`} key={index} passHref>
-              <span
-                className={`${
-                  activeItem === index
-                    ? 'dark:text-[#38bdf8] text-[#4f46e5]'
-                    : 'dark:text-white text-black'
-                } text-[18px] px-6 font-Roboto font-[500]`}
-              >
-                {i.name}
-              </span>
-            </Link>
+            <Tooltip title={`${i.name} page`} placement="bottom" key={index}>
+              <Link href={`${i.url}`} key={index} passHref>
+                <span
+                  className={`${
+                    activeItem === index
+                      ? 'dark:text-[#38bdf8] text-[#4f46e5]'
+                      : 'dark:text-white text-black'
+                  } text-[18px] px-6 font-Roboto font-[500]`}
+                >
+                  {i.name}
+                </span>
+              </Link>
+            </Tooltip>
           ))}
       </div>
       {isMobile && (
