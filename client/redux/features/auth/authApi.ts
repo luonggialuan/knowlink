@@ -1,5 +1,11 @@
 import { apiSlice } from '../api/apiSlice'
-import { userLoggedIn, userLoggedOut, userRegistration } from './authSlice'
+import {
+  useForgotPassword,
+  useResetPassword,
+  userLoggedIn,
+  userLoggedOut,
+  userRegistration
+} from './authSlice'
 
 type RegistrationResponse = {
   message: string
@@ -7,6 +13,17 @@ type RegistrationResponse = {
 }
 
 type RegistrationData = {}
+
+type ForgotPassResponse = {
+  message: string
+  activationToken: string
+}
+
+type ForgotPassData = {}
+
+type ResetPasswordResponse = { message: string; activationToken: string }
+
+type ResetPasswordData = { newPassword: string }
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -103,6 +120,50 @@ export const authApi = apiSlice.injectEndpoints({
           console.log(error)
         }
       }
+    }),
+    forgotPassword: builder.mutation<ForgotPassResponse, ForgotPassData>({
+      query: (data) => ({
+        url: 'forgot-password',
+        method: 'POST',
+        body: data,
+        credentials: 'include' as const
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const result = await queryFulfilled
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          dispatch(useForgotPassword({ token: result.data.activationToken }))
+        } catch (error: any) {
+          console.log(error)
+        }
+      }
+    }),
+    activeResetPassword: builder.mutation({
+      query: ({ activation_token, activation_code }) => ({
+        url: 'active-reset-password',
+        method: 'POST',
+        body: {
+          activation_token,
+          activation_code
+        }
+      })
+    }),
+    resetPassword: builder.mutation<ResetPasswordResponse, ResetPasswordData>({
+      query: (data) => ({
+        url: 'reset-password',
+        method: 'POST',
+        body: data,
+        credentials: 'include' as const
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const result = await queryFulfilled
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          dispatch(useResetPassword({ token: result.data.activationToken }))
+        } catch (error: any) {
+          console.log(error)
+        }
+      }
     })
   })
 })
@@ -112,5 +173,8 @@ export const {
   useActivationMutation,
   useLoginMutation,
   useSocialAuthMutation,
-  useLogOutQuery
+  useLogOutQuery,
+  useForgotPasswordMutation,
+  useActiveResetPasswordMutation,
+  useResetPasswordMutation
 } = authApi

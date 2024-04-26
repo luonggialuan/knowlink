@@ -20,6 +20,9 @@ import {
 import toast from 'react-hot-toast'
 import { MdLogin } from 'react-icons/md'
 import { useLoadUserQuery } from '@/redux/features/api/apiSlice'
+import ForgotPassword from './Auth/ForgotPassword'
+import VerificationResetPassword from './Auth/VerificationResetPassword'
+import ResetPassword from './Auth/ResetPassword'
 
 type Props = {
   open: boolean
@@ -240,6 +243,47 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
               setRoute={setRoute}
               activeItem={activeItem}
               component={Verification}
+            />
+          )}
+        </>
+      )}
+
+      {route === 'ForgotPassword' && (
+        <>
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setRoute={setRoute}
+              activeItem={activeItem}
+              component={ForgotPassword}
+            />
+          )}
+        </>
+      )}
+
+      {route === 'VerificationResetPassword' && (
+        <>
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setRoute={setRoute}
+              activeItem={activeItem}
+              component={VerificationResetPassword}
+            />
+          )}
+        </>
+      )}
+      {route === 'ResetPassword' && (
+        <>
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setRoute={setRoute}
+              activeItem={activeItem}
+              component={ResetPassword}
             />
           )}
         </>

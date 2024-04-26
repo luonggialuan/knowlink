@@ -33,6 +33,14 @@ interface IActivationToken {
   activationCode: string
 }
 
+interface IEmail {
+  email: string
+}
+
+interface IActiveResetPassword {
+  token: string
+}
+
 export const createActivationToken = (user: any): IActivationToken => {
   const activationCode = Math.floor(1000 + Math.random() * 9000).toString()
 
@@ -43,12 +51,122 @@ export const createActivationToken = (user: any): IActivationToken => {
     },
     process.env.ACTIVATION_SECRET as Secret,
     {
-      expiresIn: '5m'
+      expiresIn: '3m'
     }
   )
 
   return { token, activationCode }
 }
+
+export const forgotPassword = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { email } = req.body
+      const isEmailExist = await UserModel.findOne({ email }).select(
+        '+password'
+      )
+      if (!isEmailExist || !isEmailExist.password)
+        return next(new ErrorHandler('Email does not exist in the system', 400))
+
+      const user: IEmail = { email }
+      const activationToken = createActivationToken(user)
+      const activationCode = activationToken.activationCode
+
+      const data = { user: { email: user.email }, activationCode }
+
+      await ejs.renderFile(
+        path.join(__dirname, '../mails/forgot-password-mail.ejs'),
+        data
+      )
+
+      try {
+        await sendMail({
+          email: user.email,
+          subject: 'Reset your password account',
+          template: 'forgot-password-mail.ejs',
+          data
+        })
+
+        res.status(201).json({
+          success: true,
+          message: `Please check your email: ${user.email} to reset your password account!`,
+          activationToken: activationToken.token
+        })
+      } catch (error: any) {
+        return next(new ErrorHandler(error.message, 400))
+      }
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400))
+    }
+  }
+)
+
+export const activeResetPassword = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { activation_token, activation_code } =
+        req.body as IActivationRequest
+      const userReset: { user: IUser; activationCode: string } = jwt.verify(
+        activation_token,
+        process.env.ACTIVATION_SECRET as string
+      ) as { user: IUser; activationCode: string }
+
+      if (userReset.activationCode !== activation_code)
+        return next(new ErrorHandler('Invalid reset code', 400))
+
+      const { email } = userReset.user
+
+      const existUser = await UserModel.findOne({ email }).select('+password')
+
+      if (!existUser || !existUser.password)
+        return next(new ErrorHandler('Email does not exist in the system', 400))
+
+      const user: IEmail = { email }
+      const activationToken = createActivationToken(user)
+      // const activationCode = activationToken.activationCode
+
+      res.status(201).json({
+        success: true,
+        message: `Active reset password successfully! Please enter your new password!`,
+        activationToken: activationToken.token
+      })
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400))
+    }
+  }
+)
+
+export const resetPassword = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { activation_token, newPassword } = req.body as {
+        activation_token: string
+        newPassword: string
+      }
+
+      const userReset: { user: IUser } = jwt.verify(
+        activation_token,
+        process.env.ACTIVATION_SECRET as string
+      ) as { user: IUser }
+
+      const { email } = userReset.user
+      const user = await UserModel.findOne({ email }).select('+password')
+
+      if (!user || !user.password)
+        return next(new ErrorHandler('User not found', 404))
+
+      user.password = newPassword
+      await user.save()
+
+      res.status(201).json({
+        success: true,
+        message: 'Password reset successfully!'
+      })
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400))
+    }
+  }
+)
 
 export const registrationUser = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {

@@ -1,13 +1,16 @@
 import express from 'express'
 import {
   activateUser,
+  activeResetPassword,
   deleteUser,
+  forgotPassword,
   getAllUsers,
   getUserInfo,
   loginUser,
   logoutUser,
   // refreshAccessToken,
   registrationUser,
+  resetPassword,
   socialAuth,
   updatePassword,
   updateProfilePicture,
@@ -25,6 +28,12 @@ userRouter.post('/activate-user', activateUser)
 userRouter.post('/login', loginUser)
 
 userRouter.get('/logout', logoutUser)
+
+userRouter.post('/forgot-password', forgotPassword)
+
+userRouter.post('/active-reset-password', activeResetPassword)
+
+userRouter.post('/reset-password', resetPassword)
 
 // userRouter.get('/refresh', refreshAccessToken)
 

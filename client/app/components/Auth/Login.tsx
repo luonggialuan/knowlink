@@ -134,12 +134,12 @@ const Login: FC<Props> = ({ setOpen, setRoute, refetch }) => {
               <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
                 Password
               </label>
-              <a
-                href="#"
-                className="text-xs text-gray-500 dark:text-gray-300 hover:underline"
+              <p
+                onClick={() => setRoute('ForgotPassword')}
+                className="text-xs text-gray-500 dark:text-gray-300 hover:underline hover:cursor-pointer"
               >
-                Forget Password?
-              </a>
+                Forgot Password?
+              </p>
             </div>
             <div className="relative">
               <input

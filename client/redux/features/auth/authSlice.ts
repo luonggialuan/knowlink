@@ -19,11 +19,22 @@ const authSlice = createSlice({
     userLoggedOut: (state) => {
       state.token = ''
       state.user = ''
+    },
+    useForgotPassword: (state, action) => {
+      state.token = action.payload.token
+    },
+    useResetPassword: (state, action) => {
+      state.token = action.payload.token
     }
   }
 })
 
-export const { userRegistration, userLoggedIn, userLoggedOut } =
-  authSlice.actions
+export const {
+  userRegistration,
+  userLoggedIn,
+  userLoggedOut,
+  useForgotPassword,
+  useResetPassword
+} = authSlice.actions
 
 export default authSlice.reducer
