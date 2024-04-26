@@ -10,6 +10,8 @@ import Heading from '../utils/Heading'
 import { styles } from '../styles/style'
 import CourseCard from '../components/Course/CourseCard'
 import Footer from '../components/Footer'
+import { useRouter } from 'next/navigation'
+import { CiSearch } from 'react-icons/ci'
 
 type Props = {}
 
@@ -22,26 +24,31 @@ const page = (props: Props) => {
   const [open, setOpen] = useState(false)
   const [courses, setCourses] = useState([])
   const [category, setCategory] = useState('All')
+  const [searchKeyword, setSearchKeyword] = useState('')
+  const router = useRouter()
 
   useEffect(() => {
-    if (category === 'All') {
-      setCourses(data?.courses)
-    }
+    let filteredCourses = data?.courses || []
 
-    if (category !== 'All') {
-      setCourses(
-        data?.courses.filter((item: any) => item.category === category)
+    if (searchKeyword.trim() !== '') {
+      filteredCourses = filteredCourses.filter((item: any) =>
+        item.name.toLowerCase().includes(searchKeyword.toLowerCase())
       )
+      router.push(`/courses`)
     }
-
     if (search) {
-      setCourses(
-        data?.courses.filter((item: any) =>
-          item.name.toLowerCase().includes(search.toLowerCase())
-        )
+      filteredCourses = filteredCourses.filter((item: any) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
       )
     }
-  }, [data, category, search])
+    if (category !== 'All') {
+      filteredCourses = filteredCourses.filter(
+        (item: any) => item.category === category
+      )
+    }
+
+    setCourses(filteredCourses)
+  }, [data, category, search, searchKeyword])
 
   const categories = categoriesData?.layout.categories
 
@@ -90,6 +97,20 @@ const page = (props: Props) => {
                     </div>
                   </div>
                 ))}
+            </div>
+            <div className="w-full flex items-center justify-start ml-3 mt-4 mb-2">
+              <div className="relative">
+                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                  <CiSearch />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search courses..."
+                  value={searchKeyword}
+                  onChange={(e) => setSearchKeyword(e.target.value)}
+                  className="border border-gray-300 rounded-md ps-10 px-3 py-2 w-full md:w-96 focus:outline-none focus:border-blue-500"
+                />
+              </div>
             </div>
             {courses && courses.length === 0 && (
               <p
