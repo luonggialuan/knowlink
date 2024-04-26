@@ -9,6 +9,7 @@ import Header from '../components/Header'
 import Heading from '../utils/Heading'
 import { styles } from '../styles/style'
 import CourseCard from '../components/Course/CourseCard'
+import Footer from '../components/Footer'
 
 type Props = {}
 
@@ -29,7 +30,7 @@ const page = (props: Props) => {
 
     if (category !== 'All') {
       setCourses(
-        data?.courses.filter((item: any) => item.categories === category)
+        data?.courses.filter((item: any) => item.category === category)
       )
     }
 
@@ -108,6 +109,7 @@ const page = (props: Props) => {
                 ))}
             </div>
           </div>
+          <Footer />
         </>
       )}
     </>

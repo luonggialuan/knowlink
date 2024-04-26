@@ -55,7 +55,7 @@ const DashBoardHeader = (props: Props) => {
   }
 
   return (
-    <div className="w-full flex items-center justify-end p-6 fixed top-5 right-0">
+    <div className="w-full flex items-center justify-end p-6 top-5 right-0 fixed">
       <ThemeSwitcher />
       <div
         className="relative cursor-pointer m-2"

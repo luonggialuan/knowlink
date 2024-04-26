@@ -123,20 +123,13 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                     alt=""
                     width={30}
                     height={30}
-                    className="w-[30px] h-[30px] rounded-full object-cover cursor-pointer"
+                    className="w-[30px] h-[30px] rounded-full object-cover cursor-pointer hidden 800px:flex"
                     style={{
                       border: activeItem === 5 ? '2px solid #4f46e5' : 'none'
                     }}
                   />
                 </Link>
               ) : (
-                // <MdLogin
-                //   size={25}
-                //   className="hidden 800px:block cursor-pointer dark:text-white text-black"
-                //   onClick={() => {
-                //     setOpen(true)
-                //   }}
-                // />
                 <button
                   className="hidden 800px:flex items-center px-4 py-2 bg-indigo-500 text-white rounded-md shadow-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                   onClick={() => setOpen(true)}
@@ -195,11 +188,41 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                 }}
               >
                 <NavItems activeItem={activeItem} isMobile={true} />
-                <HiOutlineUserCircle
-                  size={25}
-                  className="cursor-pointer ml-5 my-2 dark:text-white text-black"
-                  onClick={() => setOpen(true)}
-                />
+                {userData ? (
+                  <Link
+                    href={'/profile'}
+                    className="flex items-center justify-between text-[18px] mr-5 ml-5"
+                  >
+                    Your Profile
+                    <Image
+                      src={
+                        userData.user.avatar
+                          ? userData.user.avatar?.url
+                          : avatar
+                      }
+                      alt=""
+                      width={30}
+                      height={30}
+                      className="w-[30px] h-[30px] rounded-full object-cover cursor-pointer ml-5 my-2 mr-2"
+                      style={{
+                        border: activeItem === 5 ? '2px solid #4f46e5' : 'none'
+                      }}
+                    />{' '}
+                  </Link>
+                ) : (
+                  <button
+                    className="flex 800px:flex items-center justify-center h-[40px] w-[80px] ml-5 my-2 bg-indigo-500 text-white rounded-md shadow-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    onClick={() => setOpen(true)}
+                  >
+                    <MdLogin className="mr-2" />
+                    Login
+                  </button>
+                )}
+                <div className="ml-5 my-2 mt-10">
+                  <h4 className=" text-black dark:text-white opacity-75 text-sm text-center md:text-start font-normal">
+                    @2024.KnowLink.All rights reserved
+                  </h4>
+                </div>
               </div>
             </article>
           </section>
