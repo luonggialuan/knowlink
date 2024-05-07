@@ -53,10 +53,12 @@ const CoursePreview: FC<Props> = ({
             {courseData?.price == 0 ? 'Free' : courseData?.price + '$'}
           </h1>
           <h5 className="pl-3 text-[18px] mt-2 line-through opacity-80 text-black dark:text-white">
-            {courseData?.estimatedPrice}$
+            {courseData?.price == 0 ? '' : courseData?.estimatedPrice + '$'}
+            {/* {courseData?.estimatedPrice}$ */}
           </h5>
           <h4 className="pl-5 pt-4 text-[22px] text-black dark:text-white">
-            {discountPercentengePrice}% Off
+            {courseData?.price == 0 ? '' : discountPercentengePrice + '% Off'}
+            {/* {discountPercentengePrice}% Off */}
           </h4>
         </div>
         <div className="flex ">

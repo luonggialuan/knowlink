@@ -88,12 +88,19 @@ const Profile: FC<Props> = ({ user }) => {
       {active === 3 && (
         <div className="w-full h-full bg-transparent mt-[80px]">
           <div className="w-full pl-7 px-2 800px:px-10 800px:pl-8">
-            <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-2 lg:gap-[25px] 1500px:grid-cols-3 1500px:gap-[35px] mb-12 border-0">
-              {courses &&
-                courses.map((item: any, index: number) => (
+            {courses && courses.length > 0 ? (
+              <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-2 lg:gap-[25px] 1500px:grid-cols-3 1500px:gap-[35px] mb-12 border-0">
+                {courses.map((item: any, index: number) => (
                   <CourseCard item={item} key={index} isProfile={true} />
                 ))}
-            </div>
+              </div>
+            ) : (
+              <div className="min-h-[450px] flex justify-center items-center align-baseline">
+                <p className="text-center text-gray-500 dark:text-gray-300">
+                  Courses not found!
+                </p>
+              </div>
+            )}
           </div>
         </div>
       )}

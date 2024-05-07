@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { styles } from '@/app/styles/style'
 import Image from 'next/image'
 import React from 'react'
@@ -10,42 +11,42 @@ const reviews = [
     name: 'Robert Fox',
     profession: 'CEO, Parkview Int.Ltd',
     comment:
-      'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour',
+      'KnowLink has completely transformed the way I approach learning. The video lessons are concise and engaging, making complex topics easy to understand. The interactive features allow me to take notes and revisit key concepts, enhancing my retention and comprehension. Overall, KnowLink has greatly improved my academic performance.',
     avatar: 'https://randomuser.me/api/portraits/men/1.jpg'
   },
   {
     name: 'Leslie Alexander',
     profession: 'CEO, Parkview Int.Ltd',
     comment:
-      'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour. Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour',
+      'As a visual learner, KnowLink has been a game-changer for me. The video lessons are clear and well-paced, and I appreciate the variety of subjects covered. The system user-friendly interface makes navigation seamless, and the ability to access lessons anytime, anywhere has been incredibly convenient. I highly recommend KnowLink to fellow students.As a visual learner, KnowLink has been a game-changer for me. The video lessons are clear and well-paced, and I appreciate the variety of subjects covered. ',
     avatar: 'https://randomuser.me/api/portraits/men/2.jpg'
   },
   {
     name: 'Cody Fisher',
     profession: 'CEO, Parkview Int.Ltd',
     comment:
-      'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour',
+      'KnowLink e-learning platform has been a lifesaver for me. The video lessons are structured in a way that caters to different learning styles, and the accompanying resources, such as quizzes and supplementary materials, have been instrumental in reinforcing my understanding. I feel more confident in my studies thanks to KnowLink. KnowLink e-learning platform has been a lifesaver for me. The video lessons are structured in a way that caters to different learning styles, and the accompanying resources, such as quizzes and supplementary materials, have been instrumental in reinforcing my understanding. I feel more confident in my studies thanks to KnowLink.',
     avatar: 'https://randomuser.me/api/portraits/women/3.jpg'
   },
   {
     name: 'Robert Fox',
     profession: 'CEO, Parkview Int.Ltd',
     comment:
-      'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour',
+      'I have tried several e-learning platforms, but KnowLink stands out for its comprehensive video lessons. The instructors are knowledgeable and engaging, and the production quality is top-notch. Additionally, the system progress tracking feature allows me to monitor my learning journey and identify areas for improvement. I am impressed with KnowLink commitment to student success.',
     avatar: 'https://randomuser.me/api/portraits/women/4.jpg'
   },
   {
     name: 'Leslie Alexander',
     profession: 'CEO, Parkview Int.Ltd',
     comment:
-      'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour',
+      'KnowLink has exceeded my expectations in terms of both content and usability. The video lessons are dynamic and informative, and I appreciate the option to adjust playback speed to suit my learning pace. The platform search functionality makes it easy to find specific topics, and the discussion forums foster collaboration among students. KnowLink has truly made learning enjoyable for me.',
     avatar: 'https://randomuser.me/api/portraits/men/3.jpg'
   },
   {
     name: 'Cody Fisher',
     profession: 'CEO, Parkview Int.Ltd',
     comment:
-      'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour',
+      'I have been using KnowLink for a few months now, and I am consistently impressed by the depth and quality of the video lessons. The instructors are passionate about their subjects, and it is evident in their teaching. The system mobile app allows me to learn on the go, and the offline access feature ensures uninterrupted learning even without an internet connection. KnowLink has become an invaluable resource in my academic journey.',
     avatar: 'https://randomuser.me/api/portraits/women/13.jpg'
   }
 ]
@@ -73,15 +74,9 @@ const Review = (props: Props) => {
           </h3>
           <br />
           <p className={`${styles.label} text-justify`}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-            mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-            voluptatum laborum numquam blanditiis harum quisquam eius sed odit
-            fugiat iusto fuga praesentium optio, eaque rerum! Provident
-            similique accusantium nemo autem. Veritatis obcaecati tenetur iure
-            eius earum ut molestias architecto voluptate aliquam nihil, eveniet
-            aliquid culpa officia aut! Impedit sit sunt quaerat, odit, tenetur
-            error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
-            quia.
+            Let's hear what our students have to say about KnowLink. They may
+            share their experiences, feedback, and thoughts on how KnowLink has
+            impacted their learning journey.
           </p>
         </div>
       </div>

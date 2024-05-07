@@ -37,7 +37,12 @@ const CourseContent: FC<Props> = ({
 
   const handleRemoveLink = (index: number, linkIndex: number) => {
     const updatedData = [...courseContentData]
-    updatedData[index].links.splice(linkIndex, 1)
+    updatedData[index] = {
+      ...updatedData[index],
+      links: updatedData[index].links.filter(
+        (_: any, i: number) => i !== linkIndex
+      )
+    }
     setCourseContentData(updatedData)
   }
 
@@ -149,13 +154,13 @@ const CourseContent: FC<Props> = ({
               >
                 {showSectionInput && (
                   <>
-                    <div className="flex w-full items-center">
+                    <div className="flex w-full items-center justify-between">
                       <input
                         type="text"
                         className={`text-[20px] ${
                           item.videoSection === 'Untitled Section'
                             ? 'w-[170px]'
-                            : 'w-min'
+                            : 'w-full'
                         } font-Roboto cursor-pointer text-black dark:text-white bg-transparent outline-none`}
                         value={item.videoSection}
                         onChange={(e) => {
@@ -167,7 +172,7 @@ const CourseContent: FC<Props> = ({
                           setCourseContentData(updatedData)
                         }}
                       />
-                      <BsPencil className="cursor-pointer text-black dark:text-white" />
+                      <BsPencil className="cursor-pointer text-black dark:text-white text-right" />
                     </div>
                     <br />
                   </>
@@ -222,8 +227,14 @@ const CourseContent: FC<Props> = ({
                         className={`${styles.input}`}
                         value={item.title}
                         onChange={(e) => {
-                          const updatedData = [...courseContentData]
-                          updatedData[index].title = e.target.value
+                          const updatedData = courseContentData.map(
+                            (contentItem: any, contentIndex: number) => {
+                              if (contentIndex === index) {
+                                return { ...contentItem, title: e.target.value }
+                              }
+                              return contentItem
+                            }
+                          )
                           setCourseContentData(updatedData)
                         }}
                       />
@@ -300,9 +311,25 @@ const CourseContent: FC<Props> = ({
                           className={`${styles.input}`}
                           value={link.title}
                           onChange={(e) => {
-                            const updatedData = [...courseContentData]
-                            updatedData[index].links[linkIndex].title =
-                              e.target.value
+                            const updatedData = courseContentData.map(
+                              (contentItem: any, contentIndex: number) => {
+                                if (contentIndex === index) {
+                                  const updatedLinks = contentItem.links.map(
+                                    (linkItem: any, linkIndex: number) => {
+                                      if (linkIndex === linkIndex) {
+                                        return {
+                                          ...linkItem,
+                                          title: e.target.value
+                                        }
+                                      }
+                                      return linkItem
+                                    }
+                                  )
+                                  return { ...contentItem, links: updatedLinks }
+                                }
+                                return contentItem
+                              }
+                            )
                             setCourseContentData(updatedData)
                           }}
                         />

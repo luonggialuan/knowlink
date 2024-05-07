@@ -72,7 +72,7 @@ const SideBarProfile: FC<Props> = ({
           href={'/admin'}
           className={`w-full flex items-center px-3 py-4 cursor-pointer ${
             active === 6 ? 'bg-slate-200 dark:bg-slate-800' : 'bg-transparent'
-          }`}
+          } hover:bg-slate-200 dark:hover:bg-slate-800 hover:border hover:border-gray-700 hover:dark:border-gray-300`}
         >
           <MdAdminPanelSettings
             size={20}

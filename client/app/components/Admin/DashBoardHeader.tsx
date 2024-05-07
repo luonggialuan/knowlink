@@ -62,9 +62,11 @@ const DashBoardHeader = (props: Props) => {
         onClick={() => setOpen(!open)}
       >
         <IoMdNotificationsOutline className="text-2xl cursor-pointer text-black dark:text-white" />
-        <span className="absolute -top-2 -right-2 bg-indigo-600 rounded-full w-[20px] h-[20px] text-[12px] flex items-center justify-center text-white">
-          {notifications && notifications.length}
-        </span>
+        {notifications && notifications.length != 0 && (
+          <span className="absolute -top-2 -right-2 bg-indigo-600 rounded-full w-[20px] h-[20px] text-[12px] flex items-center justify-center text-white">
+            {notifications && notifications.length}
+          </span>
+        )}
       </div>
       {open && (
         <div

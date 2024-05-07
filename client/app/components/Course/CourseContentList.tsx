@@ -58,7 +58,7 @@ const CourseContentList: FC<Props> = (props) => {
             className={`${
               !props.isDemo &&
               'border-b dark:border-slate-200 border-slate-500  pb-2'
-            }`}
+            } border-b dark:border-slate-200 border-slate-500  pb-2`}
             key={sectionIndex}
           >
             <div className="w-full flex">

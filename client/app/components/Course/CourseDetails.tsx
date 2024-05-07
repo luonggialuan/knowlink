@@ -76,7 +76,7 @@ const CourseDetails = ({
             </div>
             <br />
             <h1 className="text-[25px] font-Roboto font-[500] text-black dark:text-white">
-              What you will learn from this course
+              What you will learn from this course?
             </h1>
             <>
               {data.benefits?.map((item: any, index: number) => (
@@ -200,10 +200,12 @@ const CourseDetails = ({
                     {data.price == 0 ? 'Free' : data.price + '$'}
                   </h1>
                   <h5 className="pl-3 text-[20px] mt-2 line-through opacity-80 text-black dark:text-white">
-                    {data.estimatedPrice}$
+                    {/* {data.estimatedPrice}$ */}
+                    {data.price == 0 ? '' : data.estimatedPrice + '$'}
                   </h5>
                   <h4 className="pl-5 pt-4 text-[22px] text-black dark:text-white">
-                    {discountPercentengePrice}% Off
+                    {/* {discountPercentengePrice}% Off */}
+                    {data.price == 0 ? '' : discountPercentengePrice + '% Off'}
                   </h4>
                 </div>
               )}
