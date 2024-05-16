@@ -159,7 +159,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                         className="w-[30px] h-[30px] rounded-full object-cover cursor-pointer hidden 800px:flex"
                         style={{
                           border:
-                            activeItem === 5 ? '2px solid #4f46e5' : 'none'
+                            activeItem === 6 ? '2px solid #4f46e5' : 'none'
                         }}
                       />
                     </button>

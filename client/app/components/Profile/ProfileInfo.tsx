@@ -23,7 +23,10 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
   const [loadUser, setLoadUser] = useState(false)
   const [loadingAvatar, setLoadingAvatar] = useState(false)
   const [loadingName, setLoadingName] = useState(false)
-  const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true })
+  const { refetch } = useLoadUserQuery(undefined, {
+    skip: loadUser ? false : true,
+    refetchOnMountOrArgChange: true
+  })
 
   const imageHandler = async (e: any) => {
     const file = e.target.files[0]
@@ -81,11 +84,13 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
     if (isSuccess) {
       setLoadUser(true)
       setLoadingAvatar(false)
+      refetch()
     }
 
     if (success) {
       setLoadUser(true)
       toast.success('Update your full name successfully!')
+      refetch()
       setLoadingName(false)
     }
 
