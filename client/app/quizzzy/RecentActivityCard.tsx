@@ -8,24 +8,15 @@ import {
 } from '@/components/ui/card'
 import Link from 'next/link'
 import HistoryComponent from '../components/HistoryComponent'
-import { useLoadUserQuery } from '@/redux/features/api/apiSlice'
-import { useSelector } from 'react-redux'
 
 type Props = {
   games: any
+  userId: string | null
 }
 
-const RecentActivityCard = async ({ games }: Props) => {
-  const { data: userData } = useLoadUserQuery({})
-  // const { user } = useSelector((state: any) => state.auth)
-  // const userId = userData.user._id
-  const [userId, setUserId] = useState(null)
+const RecentActivityCard = async ({ games, userId }: Props) => {
   const filteredGames = games.filter((game: any) => game.userId === userId)
   const totalFilteredGames = filteredGames.length
-  useEffect(() => {
-    // const userId = userData.user._id
-    setUserId(userData.user._id)
-  }, [userData])
 
   return (
     <Card className="col-span-4 lg:col-span-3">
@@ -38,7 +29,7 @@ const RecentActivityCard = async ({ games }: Props) => {
         </CardDescription>
       </CardHeader>
       <CardContent className="max-h-[580px]">
-        <HistoryComponent games={games} limit={10} />
+        <HistoryComponent userId={userId} games={games} limit={10} />
       </CardContent>
     </Card>
   )

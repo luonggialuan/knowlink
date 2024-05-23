@@ -9,6 +9,7 @@ import Protected from '../hooks/useProtected'
 import Heading from '../utils/Heading'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import { useLoadUserQuery } from '@/redux/features/api/apiSlice'
 
 type Props = {
   games: any
@@ -18,6 +19,7 @@ const HistoryComponentPage = ({ games }: Props) => {
   const [open, setOpen] = useState(false)
   const [activeItem, setActiveItem] = useState(2)
   const [route, setRoute] = useState('Login')
+  const { data: userData } = useLoadUserQuery({})
   return (
     <main>
       <Protected>
@@ -46,7 +48,7 @@ const HistoryComponentPage = ({ games }: Props) => {
                 </div>
               </CardHeader>
               <CardContent className="max-h-[60vh] overflow-scroll">
-                <HistoryComponent games={games} />
+                <HistoryComponent userId={userData?.user._id} games={games} />
               </CardContent>
             </Card>
           </div>

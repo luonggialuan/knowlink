@@ -4,6 +4,7 @@ import { prisma } from '@/lib/db'
 import QuizzzyPage from './QuizzzyPage'
 import { redirect } from 'next/navigation'
 import toast from 'react-hot-toast'
+import ErrorConnectPage from '../components/ErrorConnectPage'
 
 type Props = {}
 
@@ -26,7 +27,7 @@ const page = async (props: Props) => {
 
     return <QuizzzyPage games={games} formattedTopics={formattedTopics} />
   } catch (error) {
-    return redirect('/')
+    return <ErrorConnectPage />
   }
 }
 

@@ -10,6 +10,7 @@ import HistoryCard from './HistoryCard'
 import DetailsDialog from '../components/DetailsDialog'
 import RecentActivityCard from './RecentActivityCard'
 import HotTopicsCard from './HotTopicsCard'
+import { useLoadUserQuery } from '@/redux/features/api/apiSlice'
 
 type Props = {
   games: any
@@ -20,6 +21,8 @@ const QuizzzyPage = ({ games, formattedTopics }: Props) => {
   const [open, setOpen] = useState(false)
   const [activeItem, setActiveItem] = useState(2)
   const [route, setRoute] = useState('Login')
+  const { data: userData } = useLoadUserQuery({})
+
   return (
     <main>
       <Protected>
@@ -49,7 +52,7 @@ const QuizzzyPage = ({ games, formattedTopics }: Props) => {
           </div>
           <div className="grid gap-4 mt-4 md:grid-cols-2 lg:grid-cols-7">
             <HotTopicsCard formattedTopics={formattedTopics} />
-            <RecentActivityCard games={games} />
+            <RecentActivityCard userId={userData?.user._id} games={games} />
           </div>
         </main>
         <Footer />

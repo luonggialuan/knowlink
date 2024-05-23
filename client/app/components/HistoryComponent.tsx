@@ -1,17 +1,15 @@
 import { CiClock2 } from 'react-icons/ci'
 import { LuCopyCheck, LuBookOpen } from 'react-icons/lu'
 import Link from 'next/link'
-import React from 'react'
-import { useLoadUserQuery } from '@/redux/features/api/apiSlice'
+import React, { useEffect, useState } from 'react'
 
 type Props = {
   games?: any
   limit?: number
+  userId: string | null
 }
 
-const HistoryComponent = ({ games, limit }: Props) => {
-  const { data: userData } = useLoadUserQuery({})
-  const userId = userData.user._id
+const HistoryComponent = ({ games, limit, userId }: Props) => {
   return (
     <div className="space-y-8 scroll-auto">
       {games?.length > 0
