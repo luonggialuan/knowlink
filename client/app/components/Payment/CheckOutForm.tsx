@@ -7,7 +7,7 @@ import {
   useElements,
   useStripe
 } from '@stripe/react-stripe-js'
-import { redirect } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import socketIO from 'socket.io-client'
@@ -29,8 +29,12 @@ const CheckOutForm: FC<Props> = ({ setOpen, data, user }: Props) => {
   const [createOrder, { data: orderData, isSuccess, error }] =
     useCreateOrderMutation()
   const [loadUser, setLoadUser] = useState(false)
-  const {} = useLoadUserQuery({ skip: loadUser ? false : true })
+  const { refetch } = useLoadUserQuery(
+    { skip: loadUser ? false : true },
+    { refetchOnMountOrArgChange: true }
+  )
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
@@ -47,7 +51,6 @@ const CheckOutForm: FC<Props> = ({ setOpen, data, user }: Props) => {
       setMessage(error.message)
       setIsLoading(false)
     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-      setIsLoading(false)
       createOrder({ courseId: data._id, payment_info: paymentIntent })
       // setOpen(false)
     }
@@ -61,7 +64,13 @@ const CheckOutForm: FC<Props> = ({ setOpen, data, user }: Props) => {
         message: `You have a new order from ${data.name}`,
         userId: user._id
       })
-      redirect(`/course/access/${data._id}`)
+    }
+
+    if (isSuccess) {
+      setIsLoading(false)
+      toast.success('Purchased the course successfully!')
+      refetch()
+      router.push(`/course/access/${data._id}`)
     }
 
     if (error) {
@@ -70,7 +79,7 @@ const CheckOutForm: FC<Props> = ({ setOpen, data, user }: Props) => {
         toast.error(errorMessage.data.message)
       }
     }
-  }, [orderData, error])
+  }, [orderData, error, isSuccess])
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>

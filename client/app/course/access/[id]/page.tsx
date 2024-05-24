@@ -12,7 +12,7 @@ type Props = {
 
 const page = ({ params }: Props) => {
   const id = params.id
-  const { isLoading, data } = useLoadUserQuery(undefined, {})
+  const { isLoading, data } = useLoadUserQuery({})
 
   useEffect(() => {
     if (!isLoading) {
