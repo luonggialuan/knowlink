@@ -22,7 +22,7 @@ const CourseInformation: FC<Props> = ({
 
   useEffect(() => {
     if (data) {
-      setCategories(data?.layout.categories)
+      setCategories(data?.layout?.categories)
     }
   }, [data])
 
@@ -168,7 +168,7 @@ const CourseInformation: FC<Props> = ({
               }
             >
               <option value="">Select Category</option>
-              {categories.map((item: any) => (
+              {categories?.map((item: any) => (
                 <option value={item.title} key={item._id}>
                   {item.title}
                 </option>

@@ -120,10 +120,16 @@ export const editLayout = CatchAsyncError(
             }
           })
         )
-        await LayoutModel.findByIdAndUpdate(faqData?._id, {
-          type: 'FAQ',
-          faq: faqItems
-        })
+        if (faqData) {
+          await LayoutModel.findByIdAndUpdate(faqData._id, {
+            faq: faqItems
+          })
+        } else {
+          await LayoutModel.create({
+            type: 'FAQ',
+            faq: faqItems
+          })
+        }
       }
 
       if (type === 'Categories') {
@@ -136,10 +142,17 @@ export const editLayout = CatchAsyncError(
             }
           })
         )
-        await LayoutModel.findByIdAndUpdate(categoriesData?._id, {
-          type: 'Categories',
-          categories: categoriesItems
-        })
+
+        if (categoriesData) {
+          await LayoutModel.findByIdAndUpdate(categoriesData._id, {
+            categories: categoriesItems
+          })
+        } else {
+          await LayoutModel.create({
+            type: 'Categories',
+            categories: categoriesItems
+          })
+        }
       }
 
       res.status(200).json({

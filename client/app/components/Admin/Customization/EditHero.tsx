@@ -24,8 +24,8 @@ const EditHero: FC<Props> = (props: Props) => {
 
   useEffect(() => {
     if (data) {
-      setTitle(data?.layout?.banner.title)
-      setSubTitle(data?.layout?.banner.subTitle)
+      setTitle(data?.layout?.banner?.title)
+      setSubTitle(data?.layout?.banner?.subTitle)
       setImage(data?.layout?.banner?.image?.url)
     }
   }, [data])
@@ -164,7 +164,13 @@ const EditHero: FC<Props> = (props: Props) => {
 
             <div className="col-span-6 flex justify-center">
               <div className="relative">
-                <img src={image} alt="nothing" width={1000} height={805} />
+                {image ? (
+                  <img src={image} alt="nothing" width={1000} height={805} />
+                ) : (
+                  <div className="max-w-full h-auto flex items-center justify-center">
+                    <p className="text-gray-500 dark:text-gray-200">No Image</p>
+                  </div>
+                )}
                 <input
                   type="file"
                   name=""

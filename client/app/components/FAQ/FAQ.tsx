@@ -28,7 +28,7 @@ const FAQ = (props: Props) => {
         </h1>
         <div className="w-[95%] 800px:w-[85%] m-auto mt-12">
           <dl className="space-y-8">
-            {questions.map((q) => (
+            {questions?.map((q) => (
               <div
                 key={q._id}
                 className={`${

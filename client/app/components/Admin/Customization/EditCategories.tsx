@@ -31,10 +31,16 @@ const EditCategories = (props: Props) => {
   }
 
   const newCategoriesHandler = () => {
-    if (categories[categories.length - 1].title === '') {
+    if (
+      categories?.length > 0 &&
+      categories[categories?.length - 1]?.title === ''
+    ) {
       toast.error('Category title cannot be empty')
     } else {
-      setCategories((prevCategories: any) => [...prevCategories, { title: '' }])
+      setCategories((prevCategories: any) => [
+        ...(prevCategories || []),
+        { _id: Date.now().toString(), title: '' }
+      ])
     }
   }
 
@@ -51,7 +57,7 @@ const EditCategories = (props: Props) => {
 
   const handleEdit = async () => {
     if (
-      !areCategoriesUnchanged(data?.layout.categories, categories) &&
+      !areCategoriesUnchanged(data?.layout?.categories, categories) &&
       !isAnyCategoryEmpty(categories)
     ) {
       await editLayout({
@@ -63,7 +69,7 @@ const EditCategories = (props: Props) => {
 
   useEffect(() => {
     if (data) {
-      setCategories(data?.layout.categories)
+      setCategories(data?.layout?.categories)
     }
   }, [data])
 
@@ -124,14 +130,14 @@ const EditCategories = (props: Props) => {
           <button
             className={`${styles.button} mt-10 
               ${
-                areCategoriesUnchanged(data?.layout.categories, categories) ||
+                areCategoriesUnchanged(data?.layout?.categories, categories) ||
                 isAnyCategoryEmpty(categories)
                   ? ''
                   : '!bg-indigo-500 text-white'
               }
               `}
             onClick={
-              areCategoriesUnchanged(data?.layout.categories, categories) ||
+              areCategoriesUnchanged(data?.layout?.categories, categories) ||
               isAnyCategoryEmpty(categories)
                 ? () => null
                 : handleEdit

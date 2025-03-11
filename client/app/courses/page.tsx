@@ -50,7 +50,7 @@ const page = (props: Props) => {
     setCourses(filteredCourses)
   }, [data, category, search, searchKeyword])
 
-  const categories = categoriesData?.layout.categories
+  const categories = categoriesData?.layout?.categories
 
   return (
     <>

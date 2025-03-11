@@ -84,7 +84,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
     if (isSuccess) {
       setLoadUser(true)
       setLoadingAvatar(false)
-      refetch()
+      // refetch()
     }
 
     if (success) {

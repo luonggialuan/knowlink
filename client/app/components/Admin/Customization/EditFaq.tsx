@@ -42,10 +42,11 @@ const EditFaq = (props: Props) => {
 
   const newFaqHandler = () => {
     setQuestions([
-      ...questions,
+      ...(questions || []),
       {
         questions: '',
-        answer: ''
+        answer: '',
+        _id: Date.now().toString()
       }
     ])
   }
@@ -63,7 +64,7 @@ const EditFaq = (props: Props) => {
 
   const handleEdit = async () => {
     if (
-      !areQuestionsUnchanged(data?.layout.faq, questions) &&
+      !areQuestionsUnchanged(data?.layout?.faq, questions) &&
       !isAnyQuestionEmpty(questions)
     ) {
       await editLayout({
@@ -75,7 +76,7 @@ const EditFaq = (props: Props) => {
 
   useEffect(() => {
     if (data) {
-      setQuestions(data.layout.faq)
+      setQuestions(data.layout?.faq || [])
     }
   }, [data])
 
@@ -165,14 +166,14 @@ const EditFaq = (props: Props) => {
           <button
             className={`${styles.button} mt-10
               ${
-                areQuestionsUnchanged(data?.layout.faq, questions) ||
+                areQuestionsUnchanged(data?.layout?.faq, questions) ||
                 isAnyQuestionEmpty(questions)
                   ? ''
                   : '!bg-indigo-500 text-white'
               }
               `}
             onClick={
-              areQuestionsUnchanged(data?.layout.faq, questions) ||
+              areQuestionsUnchanged(data?.layout?.faq, questions) ||
               isAnyQuestionEmpty(questions)
                 ? () => null
                 : handleEdit
